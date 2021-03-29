@@ -1,0 +1,32 @@
+{
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": false,
+    "codeFrame": false
+  },
+  "extends": ["airbnb", "prettier", "plugin:react-hooks/recommended"],
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "plugins": ["react-hooks"],
+  "rules": {
+    "max-len": ["error", { "code": 100 }],
+    "prefer-promise-reject-errors": ["off"],
+    "react/jsx-filename-extension": ["off"],
+    "react/prop-types": ["warn"],
+    "no-return-assign": ["off"],
+    // "eslint.autoFixOnSave": true,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "react/forbid-prop-types": [
+      0,
+      {
+        "checkChildContextTypes": false,
+        "checkContextTypes": false,
+        "forbid": []
+      }
+    ]
+  }
+}
