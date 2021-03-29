@@ -11,12 +11,18 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/products', (req, res) => {
-  res.json(products);
+  if (products) {
+    res.json(products);
+  } else {
+    res.send('No products');
+  }
 });
 
 app.get('/api/products/:id', (req, res) => {
   const product = products.find(item => item._id === req.params.id);
-  res.json(product);
+  if (product) {
+    res.json(product);
+  } else res.send('No product found');
 });
 
 const PORT = process.env.PORT || 5000;

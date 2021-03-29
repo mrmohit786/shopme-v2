@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import Product from '../components/Product';
 
@@ -9,6 +10,7 @@ const Home = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       const { data } = await axios.get('/api/products');
+      toast.dark('Products Listed')
       setProducts(data);
     };
     fetchProducts();

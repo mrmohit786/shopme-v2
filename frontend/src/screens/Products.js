@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import Rating from '../components/Rating';
@@ -12,7 +13,10 @@ const Products = ({ match }) => {
   useEffect(() => {
     const fetchProduct = async () => {
       const { data } = await axios.get(`/api/products/${match.params.id}`);
-      setProduct(data);
+      if (data) {
+        setProduct(data);
+        toast.dark('View product details');
+      }
     };
     fetchProduct();
   }, [match.params.id]);
@@ -24,7 +28,7 @@ const Products = ({ match }) => {
       </Link>
       <Row>
         <Col md={6}>
-          <Image src={product.image} alt={product.name} fluid />
+          <Image src={product?.image} alt={product?.name} fluid />
         </Col>
         <Col md={3}>
           <ListGroup variant="flush">
@@ -32,13 +36,13 @@ const Products = ({ match }) => {
               <h3>{product.name}</h3>
             </ListGroup.Item>
             <ListGroup.Item>
-              <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+              <Rating value={product?.rating} text={`${product?.numReviews} reviews`} />
             </ListGroup.Item>
             <ListGroup.Item>
               Price : {PRICE}
-              {product.price}
+              {product?.price}
             </ListGroup.Item>
-            <ListGroup.Item>Description: {product.description}</ListGroup.Item>
+            <ListGroup.Item>Description: {product?.description}</ListGroup.Item>
           </ListGroup>
         </Col>
         <Col md={3}>
@@ -50,7 +54,7 @@ const Products = ({ match }) => {
                   <Col>
                     <strong>
                       {PRICE}
-                      {product.price}
+                      {product?.price}
                     </strong>
                   </Col>
                 </Row>
@@ -58,12 +62,12 @@ const Products = ({ match }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>Status:</Col>
-                  <Col>{product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}</Col>
+                  <Col>{product?.countInStock > 0 ? 'In Stock' : 'Out of Stock'}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
-                  <Button disabled={!product.countInStock} className="btn-block" type="button">
+                  <Button disabled={!product?.countInStock} className="btn-block" type="button">
                     Add to Cart
                   </Button>
                 </Row>
