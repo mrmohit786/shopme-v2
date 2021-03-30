@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "proxy": "http://127.0.0.1:5000",
+  "proxy": "http://127.0.0.1:8080",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,6 +8,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
+    "crypto-js": "^4.0.0",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
     "prop-types": "^15.7.2",
