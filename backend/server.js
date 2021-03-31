@@ -1,8 +1,9 @@
 import express from 'express';
-import products from './data/products.js';
 import dotenv from 'dotenv';
-import connectDB from '../config/database.js';
 import colors from 'colors';
+import connectDB from '../config/database.js';
+import products from './routes/products.js';
+import { errorHandler, notFound } from './middleware/error.js';
 
 const app = express();
 dotenv.config();
@@ -12,20 +13,11 @@ app.get('/', (req, res) => {
   res.send('E-MART APIs');
 });
 
-app.get('/api/products', (req, res) => {
-  if (products) {
-    res.json(products);
-  } else {
-    res.send('No products');
-  }
-});
+app.use('/api/products', products);
 
-app.get('/api/products/:id', (req, res) => {
-  const product = products.find(item => item._id === req.params.id);
-  if (product) {
-    res.json(product);
-  } else res.send('No product found');
-});
+// middleware
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
