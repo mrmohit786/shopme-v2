@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import Home from './screens/Home';
 import Products from './screens/Products';
 import 'react-toastify/dist/ReactToastify.css';
+import Cart from './screens/Cart';
 
 const App = () => (
   <Router>
@@ -27,7 +28,8 @@ const App = () => (
     <main>
       <Container className="py-3">
         <Route path="/" component={Home} exact />
-        <Route path="/product/:id" component={Products} exact />
+        <Route path="/product/:id" component={Products} />
+        <Route path="/cart/:id?" component={Cart} exact />
       </Container>
     </main>
     <Footer />

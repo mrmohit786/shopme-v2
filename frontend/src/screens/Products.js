@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Button, Card, Col, Form, Image, ListGroup, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -9,7 +9,9 @@ import { listProductDetails } from '../redux/actions/products';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 
-const Products = ({ match }) => {
+const Products = ({ history, match }) => {
+  const [qty, setQty] = useState(0);
+
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
@@ -17,6 +19,11 @@ const Products = ({ match }) => {
   useEffect(() => {
     dispatch(listProductDetails(match.params.id));
   }, [dispatch, match]);
+
+  const handleAddToCart = (e) => {
+    history.push(`/cart/${match.params.id}?qty=${qty}`);
+  };
+
   return (
     <>
       <Link to="/" className="btn btn-light my-3">
@@ -66,9 +73,34 @@ const Products = ({ match }) => {
                     <Col>{product?.countInStock > 0 ? 'In Stock' : 'Out of Stock'}</Col>
                   </Row>
                 </ListGroup.Item>
+                {product.countInStock > 0 && (
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Qty</Col>
+                      <Col>
+                        <Form.Control
+                          as="select"
+                          value={qty}
+                          onChange={(e) => setQty(e.target.value)}
+                        >
+                          {[...Array(product.countInStock).keys()].map((x) => (
+                            <option key={x + 1} value={x + 1}>
+                              {x + 1}
+                            </option>
+                          ))}
+                        </Form.Control>
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+                )}
                 <ListGroup.Item>
                   <Row>
-                    <Button disabled={!product?.countInStock} className="btn-block" type="button">
+                    <Button
+                      onClick={handleAddToCart}
+                      disabled={!product?.countInStock}
+                      className="btn-block"
+                      type="button"
+                    >
                       Add to Cart
                     </Button>
                   </Row>
@@ -84,6 +116,7 @@ const Products = ({ match }) => {
 
 Products.propTypes = {
   match: PropTypes.any.isRequired,
+  history: PropTypes.any.isRequired,
 };
 
 export default Products;
