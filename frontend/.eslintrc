@@ -30,6 +30,9 @@
     "import/prefer-default-export": 1,
     "no-nested-ternary": 0,
     "no-underscore-dangle": 0,
-    "no-unused-vars": 1
+    "no-unused-vars": 1,
+    "prefer-destructuring": 1,
+    "no-var": 1,
+    "no-debugger": 1
   }
 }

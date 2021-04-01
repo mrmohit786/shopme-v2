@@ -10,7 +10,7 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 
 const Products = ({ history, match }) => {
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState(1);
 
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
@@ -20,7 +20,7 @@ const Products = ({ history, match }) => {
     dispatch(listProductDetails(match.params.id));
   }, [dispatch, match]);
 
-  const handleAddToCart = (e) => {
+  const handleAddToCart = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
 
