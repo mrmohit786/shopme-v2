@@ -2,10 +2,12 @@ import express from 'express';
 import dotenv from 'dotenv';
 import colors from 'colors';
 import connectDB from '../config/database.js';
-import products from './routes/products.js';
+import routes from './routes/routes.js';
 import { errorHandler, notFound } from './middleware/error.js';
 
 const app = express();
+app.use(express.json());
+
 dotenv.config();
 connectDB();
 
@@ -13,7 +15,7 @@ app.get('/', (req, res) => {
   res.send('E-MART APIs');
 });
 
-app.use('/api/products', products);
+app.use('/api', routes);
 
 // middleware
 app.use(notFound);
