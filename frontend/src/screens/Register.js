@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Form, Button, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { login } from '../redux/actions/user';
+import { login, register } from '../redux/actions/user';
 import FormContainer from '../components/FormContainer';
 
-const Login = ({ location, history }) => {
+const Register = ({ location, history }) => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [message, setMessage] = useState(null);
+
   const redirect = location.search ? location.search.split('=')[1] : '/';
   const dispatch = useDispatch();
-  const userLogin = useSelector((state) => state.userLogin);
-  const { loading, userInfo } = userLogin;
+  const { loading, userInfo } = useSelector((state) => state.userRegister);
 
   useEffect(() => {
     if (userInfo) {
@@ -22,13 +26,27 @@ const Login = ({ location, history }) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    dispatch(login(email, password));
+
+    if (password !== confirmPassword) {
+      toast.error('Password do not match');
+    } else {
+      dispatch(register(name, email, password));
+    }
   };
 
   return (
     <FormContainer>
-      <h1>Sign In</h1>
+      <h1>Register</h1>
       <Form onSubmit={submitHandler}>
+        <Form.Group controlId="name">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter Name"
+          />
+        </Form.Group>
         <Form.Group controlId="email">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
@@ -47,23 +65,32 @@ const Login = ({ location, history }) => {
             placeholder="Enter Password"
           />
         </Form.Group>
+        <Form.Group controlId="confirmPassword">
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Enter Password again"
+          />
+        </Form.Group>
         <Button type="submit" variant="primary" disabled={loading}>
-          {loading ? <Spinner>Loading...</Spinner> : 'Sign In'}
+          {loading ? <Spinner>Loading...</Spinner> : 'Register'}
         </Button>
       </Form>
       <Row className="py-3">
         <Col>
-          New Customer?{' '}
-          <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>Register</Link>
+          Already Register?{' '}
+          <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>Sign In</Link>
         </Col>
       </Row>
     </FormContainer>
   );
 };
 
-Login.propTypes = {
+Register.propTypes = {
   location: PropTypes.any.isRequired,
   history: PropTypes.any.isRequired,
 };
 
-export default Login;
+export default Register;

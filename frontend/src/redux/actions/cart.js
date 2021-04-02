@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { PRODUCTS } from '../../utils/apiRoutes';
+import { LOCALSTORAGE, MESSAGE } from '../../utils/constants';
 import { saveState } from '../../utils/utility';
 import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../actionTypes';
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
-  const { data } = await axios.get(`/api/products/${id}`);
+  const { data } = await axios.get(`${PRODUCTS}/${id}`);
 
   dispatch({
     type: CART_ADD_ITEM,
@@ -17,14 +19,14 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
       qty,
     },
   });
-  saveState(getState().cart.cartItems, 'cart_info');
+  saveState(getState().cart.cartItems, LOCALSTORAGE.CART_INFO);
 };
 
 export const removeFromCart = (id) => async (dispatch, getState) => {
-  toast.error('Product removed from cart');
+  toast.error(MESSAGE.REMOVE_PRODUCT);
   dispatch({
     type: CART_REMOVE_ITEM,
     payload: id,
   });
-  saveState(getState().cart.cartItems, 'cart_info');
+  saveState(getState().cart.cartItems, LOCALSTORAGE.CART_INFO);
 };

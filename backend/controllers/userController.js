@@ -8,9 +8,8 @@ import generateToken from '../utils/generateToken.js';
 export const authUser = asynchandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-  await user.matchPassword(password);
 
-  if (user) {
+  if (user && (await user.matchPassword(password))) {
     res.json({
       _id: user._id,
       name: user.name,
@@ -45,6 +44,8 @@ export const registerUser = asynchandler(async (req, res) => {
 
   if (user) {
     res.status(201).json({
+      _id: user._id,
+      name: user.name,
       email: user.modelName,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
