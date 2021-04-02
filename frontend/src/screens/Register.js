@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { login, register } from '../redux/actions/user';
+import { register } from '../redux/actions/user';
 import FormContainer from '../components/FormContainer';
+import { MESSAGE } from '../utils/constants';
 
 const Register = ({ location, history }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [message, setMessage] = useState(null);
 
   const redirect = location.search ? location.search.split('=')[1] : '/';
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const Register = ({ location, history }) => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
-      toast.error('Password do not match');
+      toast.error(MESSAGE.PASSWORD_NOT_MATCHED);
     } else {
       dispatch(register(name, email, password));
     }
