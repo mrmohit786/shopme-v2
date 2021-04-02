@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import { saveState } from '../../utils/utility';
 import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../actionTypes';
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
@@ -15,15 +17,14 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
       qty,
     },
   });
-
-  localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems));
+  saveState(getState().cart.cartItems, 'cart_info');
 };
 
 export const removeFromCart = (id) => async (dispatch, getState) => {
+  toast.error('Product removed from cart');
   dispatch({
     type: CART_REMOVE_ITEM,
     payload: id,
   });
-
-  localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems));
+  saveState(getState().cart.cartItems, 'cart_info');
 };

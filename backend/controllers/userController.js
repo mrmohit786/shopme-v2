@@ -7,10 +7,13 @@ import generateToken from '../utils/generateToken.js';
 // @access Public
 export const authUser = asynchandler(async (req, res) => {
   const { email, password } = req.body;
-
   const user = await User.findOne({ email });
-  if (user && (await user.matchPassword(password))) {
+  await user.matchPassword(password);
+
+  if (user) {
     res.json({
+      _id: user._id,
+      name: user.name,
       email: user.modelName,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),

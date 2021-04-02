@@ -20,6 +20,14 @@ export function saveState(data, key) {
     const encryptedState = CryptoAES.encrypt(stringState, AES_IV);
     localStorage.setItem(key, encryptedState);
   } catch (err) {
-    console.log(err);
+    console.error(err);
+  }
+}
+
+export function removeState(key) {
+  try {
+    localStorage.removeItem(key);
+  } catch (err) {
+    console.error(err);
   }
 }
