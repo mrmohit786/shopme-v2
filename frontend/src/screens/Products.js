@@ -100,6 +100,7 @@ const Products = ({ history, match }) => {
                       disabled={!product?.countInStock}
                       className="btn-block"
                       type="button"
+                      variant="info"
                     >
                       Add to Cart
                     </Button>

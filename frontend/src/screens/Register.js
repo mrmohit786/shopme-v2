@@ -74,7 +74,7 @@ const Register = ({ location, history }) => {
             placeholder="Enter Password again"
           />
         </Form.Group>
-        <Button type="submit" variant="primary" disabled={loading}>
+        <Button type="submit" variant="info" disabled={loading}>
           {loading ? <Spinner>Loading...</Spinner> : 'Register'}
         </Button>
       </Form>

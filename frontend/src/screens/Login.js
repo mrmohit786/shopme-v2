@@ -47,7 +47,7 @@ const Login = ({ location, history }) => {
             placeholder="Enter Password"
           />
         </Form.Group>
-        <Button type="submit" variant="primary" disabled={loading}>
+        <Button type="submit" variant="info" disabled={loading}>
           {loading ? <Spinner>Loading...</Spinner> : 'Sign In'}
         </Button>
       </Form>

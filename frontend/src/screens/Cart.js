@@ -87,6 +87,7 @@ const Cart = ({ match, location, history }) => {
                 type="button"
                 onClick={checkoutHandler}
                 className="btn-block"
+                variant="info"
                 disabled={cartItems.length === 0}
               >
                 Proceed to Checkout

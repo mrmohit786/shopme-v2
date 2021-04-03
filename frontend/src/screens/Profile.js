@@ -79,7 +79,7 @@ const Profile = ({ history }) => {
               placeholder="Enter Password again"
             />
           </Form.Group>
-          <Button type="submit" variant="primary" disabled={loading}>
+          <Button type="submit" variant="info" disabled={loading}>
             {loading ? <Spinner>Loading...</Spinner> : 'Update'}
           </Button>
         </Form>
