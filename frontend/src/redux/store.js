@@ -5,7 +5,12 @@ import { LOCALSTORAGE } from '../utils/constants';
 import { loadState } from '../utils/utility';
 import CartReducer from './reducers/cart';
 import { ProductListReducer, ProductDetailsReducer } from './reducers/products';
-import { userLoginReducer, userRegisterReducer } from './reducers/user';
+import {
+  userDetailsReducer,
+  userLoginReducer,
+  userRegisterReducer,
+  userUpdateProfileReducer,
+} from './reducers/user';
 
 const reducer = combineReducers({
   productList: ProductListReducer,
@@ -13,6 +18,8 @@ const reducer = combineReducers({
   cart: CartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
+  userDetails: userDetailsReducer,
+  userUpdateProfile: userUpdateProfileReducer,
 });
 
 const middleware = [thunk];

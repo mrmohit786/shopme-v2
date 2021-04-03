@@ -8,6 +8,7 @@ export const MESSAGE = {
   REGISTER: 'SuccessFully Register',
   REMOVE_PRODUCT: 'Product removed from cart',
   PASSWORD_NOT_MATCHED: 'Password do not match',
+  PROFILE_UPDATED: 'User profile updated',
 };
 
 export const LOCALSTORAGE = {

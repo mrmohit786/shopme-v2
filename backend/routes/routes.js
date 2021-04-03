@@ -4,6 +4,7 @@ import {
   authUser,
   getUserProfile,
   registerUser,
+  updateUserProfile,
 } from '../controllers/userController.js';
 
 import {
@@ -22,6 +23,9 @@ router.route('/products/:id').get(getProductById);
 // Users
 router.route('/users').post(registerUser);
 router.route('/users/login').post(authUser);
-router.route('/users/profile').get(auth, getUserProfile);
+router
+  .route('/users/profile')
+  .get(auth, getUserProfile)
+  .put(auth, updateUserProfile);
 
 export default router;

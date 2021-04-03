@@ -64,8 +64,35 @@ export const getUserProfile = asynchandler(async (req, res) => {
   if (user) {
     res.json({
       name: user.name,
-      email: user.modelName,
+      email: user.email,
       isAdmin: user.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
+// @desc Update user profile
+// @route PUT /api/users/profile
+// @access Private
+export const updateUserProfile = asynchandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    if (req.body.password) {
+      user.name = req.body.password;
+    }
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.modelName,
+      isAdmin: updatedUser.isAdmin,
+      token: generateToken(updatedUser._id),
     });
   } else {
     res.status(404);
