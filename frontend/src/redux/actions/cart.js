@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { PRODUCTS } from '../../utils/apiRoutes';
 import { LOCALSTORAGE, MESSAGE } from '../../utils/constants';
 import { saveState } from '../../utils/utility';
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../actionTypes';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_SHIPPING_ADDRESS } from '../actionTypes';
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
   const { data } = await axios.get(`${PRODUCTS}/${id}`);
@@ -29,4 +29,12 @@ export const removeFromCart = (id) => async (dispatch, getState) => {
     payload: id,
   });
   saveState(getState().cart.cartItems, LOCALSTORAGE.CART_INFO);
+};
+
+export const saveShippingAddress = (data) => async (dispatch) => {
+  dispatch({
+    type: CART_SAVE_SHIPPING_ADDRESS,
+    payload: data,
+  });
+  saveState(data, LOCALSTORAGE.SHIPPING_INFO);
 };

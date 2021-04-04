@@ -14,4 +14,5 @@ export const MESSAGE = {
 export const LOCALSTORAGE = {
   USER_INFO: 'user_info',
   CART_INFO: 'cart_info',
+  SHIPPING_INFO: 'shipping_address_info',
 };

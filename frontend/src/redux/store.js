@@ -30,11 +30,14 @@ const getCartItemsFromStorage = loadState(LOCALSTORAGE.CART_INFO)
 const getUserInfoFromStorage = loadState(LOCALSTORAGE.USER_INFO)
   ? loadState(LOCALSTORAGE.USER_INFO)
   : null;
+const shippingAddressFromStorage = loadState(LOCALSTORAGE.SHIPPING_INFO)
+  ? loadState(LOCALSTORAGE.USER_INFO)
+  : {};
 
 const initialState = {
   cart: {
     cartItems: getCartItemsFromStorage,
-    userInfo: getUserInfoFromStorage,
+    shippingAddress: shippingAddressFromStorage,
   },
   userLogin: {
     userInfo: getUserInfoFromStorage,

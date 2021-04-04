@@ -1,6 +1,7 @@
 import CryptoAES from 'crypto-js/aes';
 import CryptoENC from 'crypto-js/enc-utf8';
 import { AES_IV } from './constants';
+import { Logger } from './helper';
 
 export function loadState(key) {
   try {
@@ -20,7 +21,7 @@ export function saveState(data, key) {
     const encryptedState = CryptoAES.encrypt(stringState, AES_IV);
     localStorage.setItem(key, encryptedState);
   } catch (err) {
-    console.error(err);
+    Logger.error(err);
   }
 }
 
@@ -28,6 +29,6 @@ export function removeState(key) {
   try {
     localStorage.removeItem(key);
   } catch (err) {
-    console.error(err);
+    Logger.error(err);
   }
 }

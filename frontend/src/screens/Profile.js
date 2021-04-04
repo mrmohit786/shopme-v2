@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import { getUserDetails, updateUserProfile } from '../redux/actions/user';
 import { MESSAGE } from '../utils/constants';
-import Message from '../components/Message';
 
 const Profile = ({ history }) => {
   const dispatch = useDispatch();
