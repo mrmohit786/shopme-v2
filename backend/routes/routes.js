@@ -13,6 +13,7 @@ import {
 } from '../controllers/productController.js';
 
 import { auth } from '../middleware/auth.js';
+import { addOrderItems } from '../controllers/orderController.js';
 
 const router = express.Router();
 
@@ -27,5 +28,8 @@ router
   .route('/users/profile')
   .get(auth, getUserProfile)
   .put(auth, updateUserProfile);
+
+// Order
+router.route('/orders').post(auth, addOrderItems);
 
 export default router;
