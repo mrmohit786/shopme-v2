@@ -18,6 +18,7 @@ export const addOrderItems = asynchandler(async (req, res) => {
   if (orderItems && orderItems.length === 0) {
     res.status(404);
     throw new Error('No order items');
+    return;
   } else {
     const order = new Order({
       orderItems,
@@ -29,10 +30,8 @@ export const addOrderItems = asynchandler(async (req, res) => {
       shippingPrice,
       totalPrice,
     });
+
+    const createdOrder = await order.save();
+    res.status(201).json(createdOrder);
   }
-
-  const createdOrder = await order.save();
-  res.status(201).json(createdOrder);
-
-  res.json(products);
 });

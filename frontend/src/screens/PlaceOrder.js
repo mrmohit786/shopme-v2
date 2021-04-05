@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Row, Col, ListGroup, Image } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import CheckoutSteps from '../components/CheckoutSteps';
 import Message from '../components/Message';
+import { createOrder } from '../redux/actions/order';
 import { PRICE } from '../utils/constants';
 import { addDecimals } from '../utils/utility';
 
-const PlaceOrder = () => {
+const PlaceOrder = ({ history }) => {
+  const dispatch = useDispatch();
+
   const cart = useSelector((state) => state.cart);
 
   cart.itemsPrice = cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
@@ -19,8 +23,27 @@ const PlaceOrder = () => {
     Number(cart.taxPrice)
   ).toFixed(2);
 
+  const { order, success, error } = useSelector((state) => state.orderCreate);
+
+  useEffect(() => {
+    if (success) {
+      history.push(`/order/${order._id}`);
+    }
+  }, [history, order, success]);
+
   const placeOrderHandler = (event) => {
     event.preventDefault();
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      }),
+    );
   };
   return (
     <>
@@ -113,6 +136,11 @@ const PlaceOrder = () => {
                 </Col>
               </Row>
             </ListGroup.Item>
+            {error && (
+              <ListGroup.Item>
+                <Message variant="danger">{error}</Message>
+              </ListGroup.Item>
+            )}
             <ListGroup.Item>
               <Button
                 type="button"
@@ -128,6 +156,10 @@ const PlaceOrder = () => {
       </Row>
     </>
   );
+};
+
+PlaceOrder.propTypes = {
+  history: PropTypes.any.isRequired,
 };
 
 export default PlaceOrder;

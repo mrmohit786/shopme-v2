@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import { LOCALSTORAGE } from '../utils/constants';
 import { loadState } from '../utils/utility';
 import CartReducer from './reducers/cart';
+import OrderCreateReducer from './reducers/order';
 import { ProductListReducer, ProductDetailsReducer } from './reducers/products';
 import {
   userDetailsReducer,
@@ -20,6 +21,7 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
+  orderCreate: OrderCreateReducer,
 });
 
 const middleware = [thunk];

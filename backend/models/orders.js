@@ -9,6 +9,7 @@ const orderSchema = mongoose.Schema(
     },
     orderItems: [
       {
+        countInStock: { type: Number },
         name: { type: String, required: true },
         qty: { type: Number, required: true },
         image: { type: String, required: true },
@@ -43,6 +44,11 @@ const orderSchema = mongoose.Schema(
       default: 0.0,
     },
     shippingPrice: {
+      type: Number,
+      required: true,
+      default: 0.0,
+    },
+    itemsPrice: {
       type: Number,
       required: true,
       default: 0.0,
