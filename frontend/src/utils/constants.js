@@ -15,4 +15,5 @@ export const LOCALSTORAGE = {
   USER_INFO: 'user_info',
   CART_INFO: 'cart_info',
   SHIPPING_INFO: 'shipping_address_info',
+  PAYMENT_METHOD_INFO: 'payment_method_info',
 };

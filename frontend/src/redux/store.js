@@ -31,13 +31,18 @@ const getUserInfoFromStorage = loadState(LOCALSTORAGE.USER_INFO)
   ? loadState(LOCALSTORAGE.USER_INFO)
   : null;
 const shippingAddressFromStorage = loadState(LOCALSTORAGE.SHIPPING_INFO)
-  ? loadState(LOCALSTORAGE.USER_INFO)
+  ? loadState(LOCALSTORAGE.SHIPPING_INFO)
   : {};
+
+const paymentMethodFromStorage = loadState(LOCALSTORAGE.PAYMENT_METHOD_INFO)
+  ? loadState(LOCALSTORAGE.PAYMENT_METHOD_INFO)
+  : '';
 
 const initialState = {
   cart: {
     cartItems: getCartItemsFromStorage,
     shippingAddress: shippingAddressFromStorage,
+    paymentMethod: paymentMethodFromStorage,
   },
   userLogin: {
     userInfo: getUserInfoFromStorage,

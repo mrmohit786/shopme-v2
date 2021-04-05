@@ -8,6 +8,8 @@ import Products from './screens/Products';
 import Register from './screens/Register';
 import Profile from './screens/Profile';
 import Shipping from './screens/Shipping';
+import Payment from './screens/Payment';
+import PlaceOrder from './screens/PlaceOrder';
 
 const AppRoutes = () => (
   <Container>
@@ -17,6 +19,8 @@ const AppRoutes = () => (
     <Route path="/register" component={Register} />
     <Route path="/profile" component={Profile} />
     <Route path="/shipping" component={Shipping} />
+    <Route path="/payment" component={Payment} />
+    <Route path="/placeorder" component={PlaceOrder} />
     <Route path="/" component={Home} exact />
   </Container>
 );
