@@ -13,7 +13,11 @@ import {
 } from '../controllers/productController.js';
 
 import { auth } from '../middleware/auth.js';
-import { addOrderItems } from '../controllers/orderController.js';
+import {
+  addOrderItems,
+  getOrderByID,
+  updateOrderToPaid,
+} from '../controllers/orderController.js';
 
 const router = express.Router();
 
@@ -31,5 +35,7 @@ router
 
 // Order
 router.route('/orders').post(auth, addOrderItems);
+router.route('/orders/:id').get(auth, getOrderByID);
+router.route('/orders/:id/pay').put(auth, updateOrderToPaid);
 
 export default router;

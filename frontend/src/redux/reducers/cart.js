@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable no-else-return */
 /* eslint-disable no-case-declarations */
 import {
@@ -7,7 +8,7 @@ import {
   CART_SAVE_SHIPPING_ADDRESS,
 } from '../actionTypes';
 
-const CartReducer = (state = { cartItems: [], shippingAddress: {} }, action) => {
+export const cartReducer = (state = { cartItems: [], shippingAddress: {} }, action) => {
   switch (action.type) {
     case CART_ADD_ITEM:
       const item = action.payload;
@@ -40,5 +41,3 @@ const CartReducer = (state = { cartItems: [], shippingAddress: {} }, action) => 
       return state;
   }
 };
-
-export default CartReducer;

@@ -1,4 +1,4 @@
 {
-  "extends": "./tsconfig.paths.json",
+  "extends": "./jsconfig.paths.json",
   "exclude": ["node_modules", "build"]
 }

@@ -10,6 +10,7 @@ import Profile from './screens/Profile';
 import Shipping from './screens/Shipping';
 import Payment from './screens/Payment';
 import PlaceOrder from './screens/PlaceOrder';
+import Order from './screens/Order';
 
 const AppRoutes = () => (
   <Container>
@@ -21,6 +22,7 @@ const AppRoutes = () => (
     <Route path="/shipping" component={Shipping} />
     <Route path="/payment" component={Payment} />
     <Route path="/placeorder" component={PlaceOrder} />
+    <Route path="/order/:id" component={Order} />
     <Route path="/" component={Home} exact />
   </Container>
 );
