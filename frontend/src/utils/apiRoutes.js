@@ -3,3 +3,4 @@ export const LOGIN = '/api/users/login';
 export const PRODUCTS = '/api/products';
 export const PROFILE = '/api/users/profile';
 export const ORDER = '/api/orders';
+export const MY_ORDERS = '/api/orders/myorders';

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { ORDER } from '../../utils/apiRoutes';
+import { MY_ORDERS, ORDER } from '../../utils/apiRoutes';
 import {
   ORDER_CREATE_FAIL,
   ORDER_CREATE_SUCCESS,
@@ -11,6 +11,9 @@ import {
   ORDER_PAY_REQUEST,
   ORDER_PAY_SUCCESS,
   ORDER_PAY_FAIL,
+  MY_ORDER_LISTS_REQUEST,
+  MY_ORDER_LISTS_SUCCESS,
+  MY_ORDER_LISTS_FAIL,
 } from '../actionTypes';
 
 export const createOrder = (order) => async (dispatch, getState) => {
@@ -103,6 +106,37 @@ export const payOrder = (orderId, paymentResult) => async (dispatch, getState) =
     toast.error(error?.response?.data?.message || error.message);
     dispatch({
       type: ORDER_PAY_FAIL,
+      payload: error?.response?.data?.message || error.message,
+    });
+  }
+};
+
+export const myOrderLists = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: MY_ORDER_LISTS_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(MY_ORDERS, config);
+
+    dispatch({
+      type: MY_ORDER_LISTS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    toast.error(error?.response?.data?.message || error.message);
+    dispatch({
+      type: MY_ORDER_LISTS_FAIL,
       payload: error?.response?.data?.message || error.message,
     });
   }
