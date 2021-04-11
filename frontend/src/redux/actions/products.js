@@ -8,6 +8,9 @@ import {
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
+  CREATE_PRODUCT_REVIEW_REQUEST,
+  CREATE_PRODUCT_REVIEW_SUCCESS,
+  CREATE_PRODUCT_REVIEW_FAIL,
 } from '../actionTypes';
 
 export const listProducts = () => async (dispatch) => {
@@ -34,6 +37,33 @@ export const listProductDetails = (id) => async (dispatch) => {
     toast.error(error?.response?.data?.message || error.message);
     dispatch({
       type: PRODUCT_DETAILS_FAIL,
+      payload: error?.response?.data?.message || error.message,
+    });
+  }
+};
+
+export const createProductReview = (productId, review) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: CREATE_PRODUCT_REVIEW_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.post(`/api/products/${productId}/review`, review, config);
+
+    dispatch({ type: CREATE_PRODUCT_REVIEW_SUCCESS });
+  } catch (error) {
+    toast.error(error?.response?.data?.message || error.message);
+    dispatch({
+      type: CREATE_PRODUCT_REVIEW_FAIL,
       payload: error?.response?.data?.message || error.message,
     });
   }

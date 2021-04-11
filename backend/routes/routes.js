@@ -8,6 +8,7 @@ import {
 } from '../controllers/userController.js';
 
 import {
+  createProductReview,
   getProductById,
   getProducts,
 } from '../controllers/productController.js';
@@ -39,5 +40,6 @@ router.route('/orders').post(auth, addOrderItems);
 router.route('/orders/myorders').get(auth, getMyOrders);
 router.route('/orders/:id').get(auth, getOrderByID);
 router.route('/orders/:id/pay').put(auth, updateOrderToPaid);
+router.route('/orders/:id/review').post(auth, createProductReview);
 
 export default router;

@@ -4,8 +4,10 @@ import { LOGIN, PROFILE, REGISTER } from '../../utils/apiRoutes';
 import { saveState, removeState } from '../../utils/utility';
 import { LOCALSTORAGE, MESSAGE } from '../../utils/constants';
 import {
+  MY_ORDER_LISTS_REQUEST,
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
+  USER_DETAILS_RESET,
   USER_DETAILS_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
@@ -50,8 +52,10 @@ export const login = (email, password) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   removeState(LOCALSTORAGE.USER_INFO);
-  toast.warn(MESSAGE.LOGOUT);
+  dispatch({ type: MY_ORDER_LISTS_REQUEST });
+  dispatch({ type: USER_DETAILS_RESET });
   dispatch({ type: USER_LOGOUT });
+  toast.warn(MESSAGE.LOGOUT);
 };
 
 export const register = (name, email, password) => async (dispatch) => {

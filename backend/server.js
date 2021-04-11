@@ -4,6 +4,7 @@ import colors from 'colors';
 import connectDB from '../config/database.js';
 import routes from './routes/routes.js';
 import { errorHandler, notFound } from './middleware/error.js';
+import morgan from 'morgan';
 
 const app = express();
 app.use(express.json());
@@ -14,6 +15,10 @@ connectDB();
 app.get('/', (req, res) => {
   res.send('E-MART APIs');
 });
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 app.use('/api', routes);
 
