@@ -29,7 +29,7 @@ const reducer = combineReducers({
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
-  myOrderLists: myOrderListReducer,
+  myOrderLists: myOrderListsReducer,
 });
 
 const middleware = [thunk];

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
 import { Route } from 'react-router-dom';
 import Cart from './screens/Cart';
 import Login from './screens/Login';
@@ -13,7 +12,7 @@ import PlaceOrder from './screens/PlaceOrder';
 import Order from './screens/Order';
 
 const AppRoutes = () => (
-  <Container>
+  <>
     <Route path="/product/:id" component={Products} />
     <Route path="/cart/:id?" component={Cart} />
     <Route path="/login" component={Login} />
@@ -24,7 +23,7 @@ const AppRoutes = () => (
     <Route path="/placeorder" component={PlaceOrder} />
     <Route path="/order/:id" component={Order} />
     <Route path="/" component={Home} exact />
-  </Container>
+  </>
 );
 
 export default AppRoutes;

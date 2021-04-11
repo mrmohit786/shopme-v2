@@ -35,6 +35,7 @@
     "no-debugger": 1,
     "max-len": 1,
     "import/no-extraneous-dependencies": ["off"],
-    "import/no-named-as-default": 1
+    "import/no-named-as-default": 1,
+    "import/no-unresolved": 0
   }
 }

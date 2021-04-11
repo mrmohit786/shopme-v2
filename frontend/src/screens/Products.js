@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Form, Image, ListGroup, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Form, Image, ListGroup, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -36,9 +36,11 @@ const Products = ({ history, match }) => {
       ) : (
         <Row>
           <Col md={6}>
-            <Image src={product?.image} alt={product?.name} fluid />
+            <Container>
+              <Image src={product?.image} alt={product?.name} fluid />
+            </Container>
           </Col>
-          <Col md={3}>
+          <Col md={6}>
             <ListGroup variant="flush">
               <ListGroup.Item>
                 <h3>{product.name}</h3>
@@ -52,8 +54,6 @@ const Products = ({ history, match }) => {
               </ListGroup.Item>
               <ListGroup.Item>Description: {product?.description}</ListGroup.Item>
             </ListGroup>
-          </Col>
-          <Col md={3}>
             <Card>
               <ListGroup variant="flush">
                 <ListGroup.Item>
@@ -95,15 +95,28 @@ const Products = ({ history, match }) => {
                 )}
                 <ListGroup.Item>
                   <Row>
-                    <Button
-                      onClick={handleAddToCart}
-                      disabled={!product?.countInStock}
-                      className="btn-block"
-                      type="button"
-                      variant="info"
-                    >
-                      Add to Cart
-                    </Button>
+                    <Col md={6}>
+                      <Button
+                        onClick={handleAddToCart}
+                        disabled={!product?.countInStock}
+                        className="btn-block"
+                        type="button"
+                        variant="info"
+                      >
+                        <i className="fa fa-shopping-cart" aria-hidden="true" /> Add to Cart
+                      </Button>
+                    </Col>
+                    <Col md={6}>
+                      <Button
+                        onClick={handleAddToCart}
+                        disabled={!product?.countInStock}
+                        className="btn-block"
+                        type="button"
+                        variant="warning"
+                      >
+                        <i className="fa fa-bolt" aria-hidden="true" /> Buy Now
+                      </Button>
+                    </Col>
                   </Row>
                 </ListGroup.Item>
               </ListGroup>
