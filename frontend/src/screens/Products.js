@@ -12,7 +12,7 @@ import { CREATE_PRODUCT_REVIEW_RESET } from '../redux/actionTypes';
 
 const Products = ({ history, match }) => {
   const [qty, setQty] = useState(1);
-  const [comments, setComments] = useState(0);
+  const [comment, setComments] = useState(0);
   const [rating, setRating] = useState('');
 
   const dispatch = useDispatch();
@@ -25,14 +25,23 @@ const Products = ({ history, match }) => {
   } = useSelector((state) => state.createProductReview);
 
   useEffect(() => {
+    if (successProductReview) {
+      alert('Review Submitted');
+      setRating(0);
+      setComments('');
+      dispatch({ type: CREATE_PRODUCT_REVIEW_RESET });
+    }
     dispatch(listProductDetails(match.params.id));
-  }, [dispatch, match]);
+  }, [dispatch, match, successProductReview]);
 
   const handleAddToCart = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
 
-  const submitReviewHandler = () => {};
+  const submitReviewHandler = (e) => {
+    e.preventDefault();
+    dispatch(createProductReview(match.params.id, { rating, comment }));
+  };
   return (
     <>
       <Link to="/" className="btn btn-light my-3">
@@ -136,7 +145,7 @@ const Products = ({ history, match }) => {
           <Row>
             <Col md={6}>
               <h2>Reviews</h2>
-              {product.review.length === 0 && <Message>No Reviews</Message>}
+              {product.reviews.length === 0 && <Message>No Reviews</Message>}
               <ListGroup variant="flush">
                 {product.reviews.map((review) => (
                   <ListGroup.Item key={review._id}>
@@ -148,15 +157,39 @@ const Products = ({ history, match }) => {
                 ))}
                 <ListGroup.Item>
                   <h2>Write a Review</h2>
+                  {errorProductReview && <Message variant="danger">{errorProductReview}</Message>}
                   {userInfo ? (
                     <Form onSubmit={submitReviewHandler}>
-                      <Form.Group>
+                      <Form.Group controlId="rating">
                         <Form.Label>Rating</Form.Label>
+                        <Form.Control
+                          as="select"
+                          value={rating}
+                          onChange={(e) => setRating(e.target.value)}
+                        >
+                          <option value="">Select...</option>
+                          <option value="1">1 - Poor</option>
+                          <option value="2">2 - Fair</option>
+                          <option value="3">3 - Good</option>
+                          <option value="4">4 - Very Good</option>
+                          <option value="5">5 - Excellent</option>
+                        </Form.Control>
+                        <Form.Group controlId="comment">
+                          <Form.Label>Comment</Form.Label>
+                          <Form.Control
+                            as="textarea"
+                            row="3"
+                            onChange={(e) => setComments(e.target.value)}
+                          />
+                          <Button type="submit" variant="info">
+                            Submit
+                          </Button>
+                        </Form.Group>
                       </Form.Group>
                     </Form>
                   ) : (
                     <Message>
-                      Please <Link to="/login">sign in</Link>to write a review
+                      Please <Link to="/login">sign in</Link>to write a review.
                     </Message>
                   )}
                 </ListGroup.Item>

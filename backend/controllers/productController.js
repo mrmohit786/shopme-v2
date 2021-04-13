@@ -27,13 +27,17 @@ export const getProductById = asynchandler(async (req, res) => {
 // @route GET /api/products/:id/reviews
 // @access Private
 export const createProductReview = asynchandler(async (req, res) => {
-  const { rating, comment } = req.params;
+  const { rating, comment } = req.body;
   const product = await Product.findById(req.params.id);
 
   if (product) {
     const alreadyReviewed = product.reviews.find(
-      review => review.user.toString() === req.user._id
+      review => review.user.toString() === req.user._id.toString()
     );
+
+    console.log({ product, alreadyReviewed });
+    console.log(product.reviews);
+    console.log(req.user._id);
 
     if (alreadyReviewed) {
       res.status(400);
@@ -47,7 +51,7 @@ export const createProductReview = asynchandler(async (req, res) => {
       user: req.user._id,
     };
 
-    product.review.push(review);
+    product.reviews.push(review);
     product.numReviews = product.reviews.length;
     product.rating =
       product.reviews.reduce((acc, item) => item.rating + acc, 0) /
