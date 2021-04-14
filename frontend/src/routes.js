@@ -1,15 +1,15 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Cart from './screens/Cart';
-import Login from './screens/Login';
-import Home from './screens/Home';
-import Products from './screens/Products';
-import Register from './screens/Register';
-import Profile from './screens/Profile';
-import Shipping from './screens/Shipping';
-import Payment from './screens/Payment';
-import PlaceOrder from './screens/PlaceOrder';
-import Order from './screens/Order';
+import Products from 'screens/Products';
+import Cart from 'screens/Cart';
+import Login from 'screens/Login';
+import Home from 'screens/Home';
+import Register from 'screens/Register';
+import Profile from 'screens/Profile';
+import Shipping from 'screens/Shipping';
+import Payment from 'screens/Payment';
+import PlaceOrder from 'screens/PlaceOrder';
+import Order from 'screens/Order';
 
 const AppRoutes = () => (
   <>

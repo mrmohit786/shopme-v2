@@ -1,4 +1,6 @@
 {
-  "extends": "./jsconfig.paths.json",
-  "exclude": ["node_modules", "build"]
+  "compilerOptions": {
+    "baseUrl": "src"
+  },
+  "include": ["src"]
 }

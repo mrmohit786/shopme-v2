@@ -3,18 +3,30 @@ import { Button, Card, Col, Container, Form, Image, ListGroup, Row } from 'react
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import Rating from '../components/Rating';
-import { PRICE } from '../utils/constants';
-import { createProductReview, listProductDetails } from '../redux/actions/products';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
-import { CREATE_PRODUCT_REVIEW_RESET } from '../redux/actionTypes';
+import Ratings from 'react-ratings-declarative';
+import Rating from 'components/Rating';
+import Modal from 'components/Modal';
+import Message from 'components/Message';
+import Loader from 'components/Loader';
+import { PRICE } from 'utils/constants';
+import { createProductReview, listProductDetails } from 'redux/actions/products';
+import { CREATE_PRODUCT_REVIEW_RESET } from 'redux/actionTypes';
 
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
 const Products = ({ history, match }) => {
   const [qty, setQty] = useState(1);
   const [comment, setComments] = useState(0);
-  const [rating, setRating] = useState('');
-
+  const [rating, setRating] = useState(0);
+  const [openReviewModal, setReviewModal] = React.useState(false);
   const dispatch = useDispatch();
   const { loading, error, product } = useSelector((state) => state.productDetails);
   const { userInfo } = useSelector((state) => state.userLogin);
@@ -26,7 +38,6 @@ const Products = ({ history, match }) => {
 
   useEffect(() => {
     if (successProductReview) {
-      alert('Review Submitted');
       setRating(0);
       setComments('');
       dispatch({ type: CREATE_PRODUCT_REVIEW_RESET });
@@ -42,6 +53,38 @@ const Products = ({ history, match }) => {
     e.preventDefault();
     dispatch(createProductReview(match.params.id, { rating, comment }));
   };
+
+  const afterOpenModal = () => {
+    // references are now sync'd and can be accessed.
+  };
+
+  const RatingModalComponent = (
+    <Form onSubmit={submitReviewHandler}>
+      <h2>Rate this product</h2>
+      <Form.Group controlId="comment">
+        <Ratings
+          rating={rating}
+          widgetRatedColors="yellow"
+          changeRating={(newRating) => setRating(newRating)}
+        >
+          <Ratings.Widget />
+          <Ratings.Widget />
+          <Ratings.Widget />
+          <Ratings.Widget />
+          <Ratings.Widget />
+        </Ratings>
+      </Form.Group>
+      <Form.Group controlId="comment">
+        <h2>Review this product</h2>
+        <Form.Control as="textarea" row="3" onChange={(e) => setComments(e.target.value)} />
+        <input type="file" id="file-input" name="ImageStyle" />
+        <Button type="submit" variant="info">
+          Submit
+        </Button>
+      </Form.Group>
+    </Form>
+  );
+
   return (
     <>
       <Link to="/" className="btn btn-light my-3">
@@ -65,7 +108,7 @@ const Products = ({ history, match }) => {
                   <h3>{product.name}</h3>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <Rating value={product?.rating} text={`${product?.numReviews} reviews`} />
+                  <Rating value={Number(product?.rating)} text={`${product?.numReviews} reviews`} />
                 </ListGroup.Item>
                 <ListGroup.Item>
                   Price : {PRICE}
@@ -150,43 +193,28 @@ const Products = ({ history, match }) => {
                 {product.reviews.map((review) => (
                   <ListGroup.Item key={review._id}>
                     <strong>{review.name}</strong>
-                    <Rating value={review.rating} />
+                    <Rating value={Number(review.rating)} />
                     <p>{review.createdAt.substring(0, 10)}</p>
                     <p>{review.comment}</p>
                   </ListGroup.Item>
                 ))}
                 <ListGroup.Item>
-                  <h2>Write a Review</h2>
                   {errorProductReview && <Message variant="danger">{errorProductReview}</Message>}
                   {userInfo ? (
-                    <Form onSubmit={submitReviewHandler}>
-                      <Form.Group controlId="rating">
-                        <Form.Label>Rating</Form.Label>
-                        <Form.Control
-                          as="select"
-                          value={rating}
-                          onChange={(e) => setRating(e.target.value)}
-                        >
-                          <option value="">Select...</option>
-                          <option value="1">1 - Poor</option>
-                          <option value="2">2 - Fair</option>
-                          <option value="3">3 - Good</option>
-                          <option value="4">4 - Very Good</option>
-                          <option value="5">5 - Excellent</option>
-                        </Form.Control>
-                        <Form.Group controlId="comment">
-                          <Form.Label>Comment</Form.Label>
-                          <Form.Control
-                            as="textarea"
-                            row="3"
-                            onChange={(e) => setComments(e.target.value)}
-                          />
-                          <Button type="submit" variant="info">
-                            Submit
-                          </Button>
-                        </Form.Group>
-                      </Form.Group>
-                    </Form>
+                    <>
+                      <Button variant="primary" onClick={() => setReviewModal(true)}>
+                        Add Review
+                      </Button>
+                      <Modal
+                        isOpen={openReviewModal}
+                        title="Add Review"
+                        onAfterOpen={afterOpenModal}
+                        onRequestClose={() => setReviewModal(false)}
+                        style={customStyles}
+                        contentLabel="add review"
+                        component={RatingModalComponent}
+                      />
+                    </>
                   ) : (
                     <Message>
                       Please <Link to="/login">sign in</Link>to write a review.

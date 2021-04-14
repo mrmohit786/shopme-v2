@@ -1,15 +1,11 @@
-/* eslint-disable import/no-extraneous-dependencies */
-const CracoAlias = require('craco-alias');
+/* craco.config.js */
+const path = require(`path`);
 
 module.exports = {
-  plugin: [
-    {
-      plugin: CracoAlias,
-      options: {
-        source: 'jsconfig',
-        baseUrl: './src',
-        tsConfigPath: './jsconfig.paths.json',
-      },
+  webpack: {
+    alias: {
+      '@': path.resolve(__dirname, 'src/'),
+      '@Components': path.resolve(__dirname, 'src/components'),
     },
-  ],
+  },
 };
