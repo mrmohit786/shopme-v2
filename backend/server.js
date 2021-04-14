@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import colors from 'colors';
+import compression from 'compression';
 import connectDB from '../config/database.js';
 import routes from './routes/routes.js';
 import { errorHandler, notFound } from './middleware/error.js';
@@ -12,13 +13,28 @@ app.use(express.json());
 dotenv.config();
 connectDB();
 
-app.get('/', (req, res) => {
-  res.send('E-MART APIs');
-});
+app.use(
+  compression({
+    threshold: 0,
+    filter: (req, res) => {
+      if (req.headers['x-no-compression']) {
+        // don't compress responses if this request header is present
+        return false;
+      }
+
+      // fallback to standard compression
+      return compression.filter(req, res);
+    },
+  })
+);
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+app.get('/', (req, res) => {
+  res.send('E-MART APIs');
+});
 
 app.use('/api', routes);
 
