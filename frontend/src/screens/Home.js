@@ -1,19 +1,21 @@
 import React, { useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import Product from '../components/Product';
-import { listProducts } from '../redux/actions/products';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
+import PropTypes from 'prop-types';
+import Product from 'components/Product';
+import { listProducts } from 'redux/actions/products';
+import Loader from 'components/Loader';
+import Message from 'components/Message';
 
-const Home = () => {
+const Home = ({ match }) => {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
+  const { keyword } = match.params;
 
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(listProducts(keyword));
+  }, [dispatch, keyword]);
 
   return (
     <>
@@ -33,6 +35,10 @@ const Home = () => {
       )}
     </>
   );
+};
+
+Home.propTypes = {
+  match: PropTypes.any.isRequired,
 };
 
 export default Home;

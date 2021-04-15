@@ -5,7 +5,17 @@ import Product from '../models/products.js';
 // @route GET /api/products
 // @access Public
 export const getProducts = asynchandler(async (req, res) => {
-  const products = await Product.find({});
+  const isSearched = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: 'i',
+        },
+      }
+    : {};
+
+  console.log(isSearched);
+  const products = await Product.find({ ...isSearched });
   res.json(products);
 });
 
@@ -14,7 +24,6 @@ export const getProducts = asynchandler(async (req, res) => {
 // @access Public
 export const getProductById = asynchandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
-
   if (product) {
     res.json(product);
   } else {
