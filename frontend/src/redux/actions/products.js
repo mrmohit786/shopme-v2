@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { PAGE_LIMIT } from 'utils/constants';
 import { PRODUCTS } from '../../utils/apiRoutes';
 import {
   PRODUCT_LIST_REQUEST,
@@ -13,11 +14,11 @@ import {
   CREATE_PRODUCT_REVIEW_FAIL,
 } from '../actionTypes';
 
-export const listProducts = (keyword = '') => async (dispatch) => {
+export const listProducts = (keyword = '', page = 1, limit = PAGE_LIMIT) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
 
-    const { data } = await axios.get(`${PRODUCTS}?keyword=${keyword}`);
+    const { data } = await axios.get(`${PRODUCTS}?keyword=${keyword}&page=${page}&limit=${limit}`);
 
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {

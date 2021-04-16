@@ -22,7 +22,9 @@ const AppRoutes = () => (
     <Route path="/payment" component={Payment} />
     <Route path="/placeorder" component={PlaceOrder} />
     <Route path="/order/:id" component={Order} />
+    <Route path="/search/:keyword/page/:page" component={Home} />
     <Route path="/search/:keyword" component={Home} />
+    <Route path="/page/:page" component={Home} />
     <Route path="/" component={Home} exact />
   </>
 );

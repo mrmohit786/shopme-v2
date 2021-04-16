@@ -8,7 +8,7 @@ import Rating from 'components/Rating';
 import Modal from 'components/Modal';
 import Message from 'components/Message';
 import Loader from 'components/Loader';
-import { PRICE } from 'utils/constants';
+import { PRICE, RATING_MESSAGE } from 'utils/constants';
 import { createProductReview, listProductDetails } from 'redux/actions/products';
 import { CREATE_PRODUCT_REVIEW_RESET } from 'redux/actionTypes';
 
@@ -58,6 +58,13 @@ const Products = ({ history, match }) => {
     // references are now sync'd and can be accessed.
   };
 
+  const NotPurchasedProductComponent = (
+    <div>
+      <h2>Haven't Purchased this product?</h2>
+      <p>Sorry! You are not allowed to review this product since you haven't bought it on ShopMe</p>
+    </div>
+  );
+
   const RatingModalComponent = (
     <Form onSubmit={submitReviewHandler}>
       <h2>Rate this product</h2>
@@ -74,6 +81,7 @@ const Products = ({ history, match }) => {
           <Ratings.Widget />
         </Ratings>
       </Form.Group>
+      <p style={{ color: `${RATING_MESSAGE[rating]?.color}` }}>{RATING_MESSAGE[rating]?.message}</p>
       <Form.Group controlId="comment">
         <h2>Review this product</h2>
         <Form.Control as="textarea" row="3" onChange={(e) => setComments(e.target.value)} />

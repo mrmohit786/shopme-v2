@@ -17,3 +17,13 @@ export const LOCALSTORAGE = {
   SHIPPING_INFO: 'shipping_address_info',
   PAYMENT_METHOD_INFO: 'payment_method_info',
 };
+
+export const RATING_MESSAGE = {
+  1: { message: 'Very Bad', color: '#000' },
+  2: { message: 'Bad', color: '#000' },
+  3: { message: 'Good', color: '#000' },
+  4: { message: 'Very Good', color: '#000' },
+  5: { message: 'Excellent', color: '#000' },
+};
+
+export const PAGE_LIMIT = 2;
