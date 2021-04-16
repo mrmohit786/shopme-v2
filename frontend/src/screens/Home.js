@@ -7,6 +7,7 @@ import { listProducts } from 'redux/actions/products';
 import Loader from 'components/Loader';
 import Message from 'components/Message';
 import Paginate from 'components/Paginate';
+import TopProductCarousel from 'components/Carousel';
 
 const Home = ({ match }) => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const Home = ({ match }) => {
 
   return (
     <>
+      {!keyword && <TopProductCarousel />}
       <h1>latest Products</h1>
       {loading ? (
         <Loader />

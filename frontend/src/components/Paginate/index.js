@@ -2,7 +2,6 @@ import React from 'react';
 import { Pagination } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 const Paginate = ({ pages, page, isAdmin, keyword }) =>
   pages > 1 && (

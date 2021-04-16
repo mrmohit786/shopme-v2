@@ -76,3 +76,12 @@ export const createProductReview = asynchandler(async (req, res) => {
     throw new Error('Product not Found');
   }
 });
+
+// @desc Get top rated products
+// @route GET /api/products/top
+// @access Public
+export const getTopProducts = asynchandler(async (req, res) => {
+  const limit = Number(req.query.limit);
+  const products = await Product.find({}).sort({ rating: -1 }).limit(limit);
+  res.json(products);
+});

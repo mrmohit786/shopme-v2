@@ -26,4 +26,5 @@ export const RATING_MESSAGE = {
   5: { message: 'Excellent', color: '#000' },
 };
 
-export const PAGE_LIMIT = 2;
+export const PAGE_LIMIT = 4;
+export const TOP_PRODUCTS_LIMIT = 3;

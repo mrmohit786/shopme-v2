@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { PAGE_LIMIT } from 'utils/constants';
-import { PRODUCTS } from '../../utils/apiRoutes';
+import { PAGE_LIMIT, TOP_PRODUCTS_LIMIT } from 'utils/constants';
+import { GET_TOP_PRODUCTS, PRODUCTS } from 'utils/apiRoutes';
 import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
@@ -12,7 +12,10 @@ import {
   CREATE_PRODUCT_REVIEW_REQUEST,
   CREATE_PRODUCT_REVIEW_SUCCESS,
   CREATE_PRODUCT_REVIEW_FAIL,
-} from '../actionTypes';
+  TOP_PRODUCTS_REQUEST,
+  TOP_PRODUCTS_SUCCESS,
+  TOP_PRODUCTS_FAIL,
+} from 'redux/actionTypes';
 
 export const listProducts = (keyword = '', page = 1, limit = PAGE_LIMIT) => async (dispatch) => {
   try {
@@ -65,6 +68,21 @@ export const createProductReview = (productId, review) => async (dispatch, getSt
     toast.error(error?.response?.data?.message || error.message);
     dispatch({
       type: CREATE_PRODUCT_REVIEW_FAIL,
+      payload: error?.response?.data?.message || error.message,
+    });
+  }
+};
+
+export const listTopProducts = (limit = TOP_PRODUCTS_LIMIT) => async (dispatch) => {
+  try {
+    dispatch({ type: TOP_PRODUCTS_REQUEST });
+    const { data } = await axios.get(`${GET_TOP_PRODUCTS}?limit=${limit}`);
+
+    dispatch({ type: TOP_PRODUCTS_SUCCESS, payload: data });
+  } catch (error) {
+    toast.error(error?.response?.data?.message || error.message);
+    dispatch({
+      type: TOP_PRODUCTS_FAIL,
       payload: error?.response?.data?.message || error.message,
     });
   }

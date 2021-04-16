@@ -11,6 +11,7 @@ import {
   createProductReview,
   getProductById,
   getProducts,
+  getTopProducts,
 } from '../controllers/productController.js';
 
 import { auth } from '../middleware/auth.js';
@@ -25,6 +26,7 @@ const router = express.Router();
 
 // Products
 router.route('/products').get(getProducts);
+router.route('/products/top').get(getTopProducts);
 router.route('/products/:id').get(getProductById);
 router.route('/products/:id/reviews').post(auth, createProductReview);
 
