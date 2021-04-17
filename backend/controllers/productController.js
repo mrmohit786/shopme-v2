@@ -33,7 +33,7 @@ export const getProducts = asynchandler(async (req, res) => {
 export const getProductById = asynchandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
   if (product) {
-    res.json(product);
+    res.status(200).json(product);
   } else {
     res.status(404);
     throw new Error('Product not Found');

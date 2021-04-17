@@ -48,7 +48,14 @@ const Login = ({ location, history }) => {
           />
         </Form.Group>
         <Button type="submit" variant="info" disabled={loading}>
-          {loading ? <Spinner>Loading...</Spinner> : 'Sign In'}
+          {loading ? (
+            <>
+              <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />{' '}
+              Signing In...
+            </>
+          ) : (
+            'Sign In'
+          )}
         </Button>
       </Form>
       <Row className="py-3">

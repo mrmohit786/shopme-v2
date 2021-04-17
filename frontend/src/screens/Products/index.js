@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Container, Form, Image, ListGroup, Row } from 'react-bootstrap';
+import {
+  Badge,
+  Breadcrumb,
+  Button,
+  Card,
+  Col,
+  Container,
+  Form,
+  Image,
+  ListGroup,
+  Row,
+} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -11,6 +22,8 @@ import Loader from 'components/Loader';
 import { PRICE, RATING_MESSAGE } from 'utils/constants';
 import { createProductReview, listProductDetails } from 'redux/actions/products';
 import { CREATE_PRODUCT_REVIEW_RESET } from 'redux/actionTypes';
+import { LinkContainer } from 'react-router-bootstrap';
+import { usePrevious } from 'utils/utility';
 
 const customStyles = {
   content: {
@@ -42,6 +55,7 @@ const Products = ({ history, match }) => {
       setComments('');
       dispatch({ type: CREATE_PRODUCT_REVIEW_RESET });
     }
+
     dispatch(listProductDetails(match.params.id));
   }, [dispatch, match, successProductReview]);
 
@@ -95,15 +109,23 @@ const Products = ({ history, match }) => {
 
   return (
     <>
-      <Link to="/" className="btn btn-light my-3">
-        Go Back
-      </Link>
       {loading ? (
         <Loader />
       ) : error ? (
         <Message>{error}</Message>
       ) : (
         <>
+          <Breadcrumb>
+            <LinkContainer to="/" exact>
+              <Breadcrumb.Item>Home</Breadcrumb.Item>
+            </LinkContainer>
+            <LinkContainer to="/" exact>
+              <Breadcrumb.Item>{product.category}</Breadcrumb.Item>
+            </LinkContainer>
+            <LinkContainer to="/" exact>
+              <Breadcrumb.Item active>{product.name}</Breadcrumb.Item>
+            </LinkContainer>
+          </Breadcrumb>
           <Row>
             <Col md={6}>
               <Container>
@@ -113,10 +135,16 @@ const Products = ({ history, match }) => {
             <Col md={6}>
               <ListGroup variant="flush">
                 <ListGroup.Item>
+                  <h3>{product?.brand?.toUpperCase()}</h3>
+                </ListGroup.Item>
+                <ListGroup.Item>
                   <h3>{product.name}</h3>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <Rating value={Number(product?.rating)} text={`${product?.numReviews} reviews`} />
+                  <Badge variant="dark">
+                    {Number(product?.rating)} <i className="fas fa-star" />
+                  </Badge>{' '}
+                  {`${product?.numReviews} reviews`}
                 </ListGroup.Item>
                 <ListGroup.Item>
                   Price : {PRICE}
@@ -225,7 +253,7 @@ const Products = ({ history, match }) => {
                     </>
                   ) : (
                     <Message>
-                      Please <Link to="/login">sign in</Link>to write a review.
+                      Please <Link to="/login">login</Link> to write a review.
                     </Message>
                   )}
                 </ListGroup.Item>

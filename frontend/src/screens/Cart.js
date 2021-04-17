@@ -32,13 +32,18 @@ const Cart = ({ match, location, history }) => {
     <Row>
       <Col md={8}>
         {cartItems?.length === 0 ? (
-          <Message>
-            Your cart is empty
+          <div>
+            <img
+              style={{ width: '200px' }}
+              src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"
+              alt="shop now"
+            />
+            <h3>Your cart is empty</h3>
+            <p>Add items to it now</p>
             <Link to="/">
-              {' '}
-              <strong>Shop Now</strong>
+              <Button>Shop now</Button>
             </Link>
-          </Message>
+          </div>
         ) : (
           <ListGroup variant="flush">
             {cartItems?.map((item) => (

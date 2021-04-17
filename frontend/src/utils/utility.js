@@ -1,7 +1,16 @@
 import CryptoAES from 'crypto-js/aes';
 import CryptoENC from 'crypto-js/enc-utf8';
+import { useEffect, useRef } from 'react';
 import { AES_IV } from './constants';
 import { Logger } from './helper';
+
+export function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
 
 export function loadState(key) {
   try {
