@@ -10,9 +10,10 @@ import Shipping from 'screens/Shipping';
 import Payment from 'screens/Payment';
 import PlaceOrder from 'screens/PlaceOrder';
 import Order from 'screens/Order';
+import { Container } from 'react-bootstrap';
 
 const AppRoutes = () => (
-  <>
+  <div className="ml-3 mr-3">
     <Route path="/product/:id" component={Products} />
     <Route path="/cart/:id?" component={Cart} />
     <Route path="/login" component={Login} />
@@ -26,7 +27,7 @@ const AppRoutes = () => (
     <Route path="/search/:keyword" component={Home} />
     <Route path="/page/:page" component={Home} />
     <Route path="/" component={Home} exact />
-  </>
+  </div>
 );
 
 export default AppRoutes;

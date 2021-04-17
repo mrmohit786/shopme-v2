@@ -22,8 +22,9 @@ export const getProducts = asynchandler(async (req, res) => {
   const products = await Product.find({ ...isSearched })
     .limit(limit)
     .skip(limit * (page - 1));
-
-  res.json({ products, page, pages: Math.ceil(totalProductCount / limit) });
+  res
+    .status(200)
+    .json({ products, page, pages: Math.ceil(totalProductCount / limit) });
 });
 
 // @desc Fetch single product

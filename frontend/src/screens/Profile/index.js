@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { LinkContainer } from 'react-router-bootstrap';
 import PropTypes from 'prop-types';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
-import { myOrderLists } from '../redux/actions/order';
-import { getUserDetails, updateUserProfile } from '../redux/actions/user';
-import { MESSAGE } from '../utils/constants';
+import Loader from 'components/Loader';
+import Message from 'components/Message';
+import { myOrderLists } from 'redux/actions/order';
+import { getUserDetails, updateUserProfile } from 'redux/actions/user';
+import { MESSAGE } from 'utils/constants';
 
 const Profile = ({ history }) => {
   const dispatch = useDispatch();
