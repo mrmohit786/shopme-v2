@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Form, Button, Spinner } from 'react-bootstrap';
+import { Row, Col, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { register } from '../redux/actions/user';
-import FormContainer from '../components/FormContainer';
-import { MESSAGE } from '../utils/constants';
+import { LoadingButton, FormContainer } from 'components';
+import { register } from 'redux/actions/user';
+import { MESSAGE } from 'utils/constants';
 
 const Register = ({ location, history }) => {
   const [name, setName] = useState('');
@@ -74,9 +74,7 @@ const Register = ({ location, history }) => {
             placeholder="Enter Password again"
           />
         </Form.Group>
-        <Button type="submit" variant="info" disabled={loading}>
-          {loading ? <Spinner>Loading...</Spinner> : 'Register'}
-        </Button>
+        <LoadingButton loading={loading} text="Register" loadingText="Creating account" />
       </Form>
       <Row className="py-3">
         <Col>

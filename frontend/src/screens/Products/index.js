@@ -15,15 +15,11 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Ratings from 'react-ratings-declarative';
-import Rating from 'components/Rating';
-import Modal from 'components/Modal';
-import Message from 'components/Message';
-import Loader from 'components/Loader';
+import { Rating, Modal, Message, Loader } from 'components';
 import { PRICE, RATING_MESSAGE } from 'utils/constants';
 import { createProductReview, listProductDetails } from 'redux/actions/products';
 import { CREATE_PRODUCT_REVIEW_RESET } from 'redux/actionTypes';
 import { LinkContainer } from 'react-router-bootstrap';
-import { usePrevious } from 'utils/utility';
 
 const customStyles = {
   content: {

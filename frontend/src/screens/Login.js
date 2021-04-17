@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Form, Button, Spinner } from 'react-bootstrap';
+import { Row, Col, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { login } from '../redux/actions/user';
-import FormContainer from '../components/FormContainer';
+import { login } from 'redux/actions/user';
+import { LoadingButton, FormContainer } from 'components';
 
 const Login = ({ location, history }) => {
   const [email, setEmail] = useState('');
@@ -47,16 +47,7 @@ const Login = ({ location, history }) => {
             placeholder="Enter Password"
           />
         </Form.Group>
-        <Button type="submit" variant="info" disabled={loading}>
-          {loading ? (
-            <>
-              <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />{' '}
-              Signing In...
-            </>
-          ) : (
-            'Sign In'
-          )}
-        </Button>
+        <LoadingButton loading={loading} text="Sign In" loadingText="Signing In" />
       </Form>
       <Row className="py-3">
         <Col>
