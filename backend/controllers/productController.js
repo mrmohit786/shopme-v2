@@ -19,12 +19,61 @@ export const getProducts = asynchandler(async (req, res) => {
 
   const totalProductCount = await Product.countDocuments({ ...isSearched });
 
-  const products = await Product.find({ ...isSearched })
+  let products = await Product.find({ ...isSearched })
+    .populate('category', 'name')
+    .populate('subCategory', 'name')
+    .populate('productType', 'name')
     .limit(limit)
     .skip(limit * (page - 1));
-  res
-    .status(200)
-    .json({ products, page, pages: Math.ceil(totalProductCount / limit) });
+
+  res.status(200).json({
+    products,
+    page,
+    pages: Math.ceil(totalProductCount / limit),
+    totalProducts: totalProductCount,
+  });
+});
+
+// @desc create product
+// @route POST /api/products
+// @access Public
+export const createProducts = asynchandler(async (req, res) => {
+  const {
+    name,
+    image,
+    description,
+    brand,
+    categoryId,
+    subCategoryId,
+    productTypeId,
+    price,
+    countInStock,
+    rating,
+    numReviews,
+    userId,
+  } = req.body;
+
+  const product = await Product.create({
+    name,
+    image,
+    description,
+    brand,
+    category: categoryId,
+    subCategory: subCategoryId,
+    productType: productTypeId,
+    price,
+    countInStock,
+    rating,
+    numReviews,
+    user: userId,
+  });
+
+  if (product) {
+    res.status(201).json(product);
+  } else {
+    res.status(400);
+    throw new Error('Internal Server Error');
+  }
 });
 
 // @desc Fetch single product

@@ -36,8 +36,19 @@ const productSchema = mongoose.Schema(
       required: true,
     },
     category: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
+      ref: 'category',
+    },
+    subCategory: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'subCategory',
+    },
+    productType: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'productType',
     },
     description: {
       type: String,

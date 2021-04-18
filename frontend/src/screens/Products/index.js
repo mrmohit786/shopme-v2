@@ -119,6 +119,9 @@ const Products = ({ history, match }) => {
               <Breadcrumb.Item>{product.category}</Breadcrumb.Item>
             </LinkContainer>
             <LinkContainer to="/" exact>
+              <Breadcrumb.Item>{product.subCategory}</Breadcrumb.Item>
+            </LinkContainer>
+            <LinkContainer to="/" exact>
               <Breadcrumb.Item active>{product.name}</Breadcrumb.Item>
             </LinkContainer>
           </Breadcrumb>

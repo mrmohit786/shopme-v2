@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import SearchBox from 'components/Search';
+import { Search } from 'components';
+import { getAllCategories } from 'redux/actions/products';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../redux/actions/user';
+import { logout } from 'redux/actions/user';
 
 const Header = () => {
-  const { userInfo } = useSelector((state) => state.userLogin);
   const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.userLogin);
+  const { loading, error, categories } = useSelector((state) => state.allCategories);
+
+  useEffect(() => {
+    dispatch(getAllCategories());
+  }, [dispatch]);
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -23,7 +29,7 @@ const Header = () => {
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Route render={({ history }) => <SearchBox history={history} />} />
+            <Route render={({ history }) => <Search history={history} />} />
             <Nav className="ml-auto">
               <LinkContainer to="/cart">
                 <Nav.Link>
@@ -46,6 +52,20 @@ const Header = () => {
               )}
             </Nav>
           </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      <Navbar bg="primary" variant="dark" collapseOnSelect expand="lg">
+        <Container>
+          {error && <h3>Problem in loading categories</h3>}
+          {loading ? (
+            <p>Fetching Categories</p>
+          ) : (
+            categories?.map((category) => (
+              <LinkContainer to="/">
+                <Navbar.Brand>{category.name}</Navbar.Brand>
+              </LinkContainer>
+            ))
+          )}
         </Container>
       </Navbar>
     </header>

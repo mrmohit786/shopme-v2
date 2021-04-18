@@ -12,6 +12,9 @@ import {
   TOP_PRODUCTS_REQUEST,
   TOP_PRODUCTS_SUCCESS,
   TOP_PRODUCTS_FAIL,
+  ALL_CATEGORIES_REQUEST,
+  ALL_CATEGORIES_SUCCESS,
+  ALL_CATEGORIES_FAIL,
 } from '../actionTypes';
 
 export const productListReducer = (state = { products: [] }, action) => {
@@ -67,6 +70,19 @@ export const getTopProductsReducer = (state = { products: [] }, action) => {
     case TOP_PRODUCTS_SUCCESS:
       return { loading: false, products: action.payload };
     case TOP_PRODUCTS_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getAllCategoriesReducer = (state = { categories: [] }, action) => {
+  switch (action.type) {
+    case ALL_CATEGORIES_REQUEST:
+      return { loading: true, categories: [] };
+    case ALL_CATEGORIES_SUCCESS:
+      return { loading: false, categories: action.payload };
+    case ALL_CATEGORIES_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

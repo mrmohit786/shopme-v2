@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { PAGE_LIMIT, TOP_PRODUCTS_LIMIT } from 'utils/constants';
-import { GET_TOP_PRODUCTS, PRODUCTS } from 'utils/apiRoutes';
+import { GET_ALL_CATEGORIES, GET_TOP_PRODUCTS, PRODUCTS } from 'utils/apiRoutes';
 import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
@@ -15,6 +15,9 @@ import {
   TOP_PRODUCTS_REQUEST,
   TOP_PRODUCTS_SUCCESS,
   TOP_PRODUCTS_FAIL,
+  ALL_CATEGORIES_REQUEST,
+  ALL_CATEGORIES_SUCCESS,
+  ALL_CATEGORIES_FAIL,
 } from 'redux/actionTypes';
 
 export const listProducts = (keyword = '', page = 1, limit = PAGE_LIMIT) => async (dispatch) => {
@@ -83,6 +86,21 @@ export const listTopProducts = (limit = TOP_PRODUCTS_LIMIT) => async (dispatch) 
     toast.error(error?.response?.data?.message || error.message);
     dispatch({
       type: TOP_PRODUCTS_FAIL,
+      payload: error?.response?.data?.message || error.message,
+    });
+  }
+};
+
+export const getAllCategories = () => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_CATEGORIES_REQUEST });
+    const { data } = await axios.get(GET_ALL_CATEGORIES);
+
+    dispatch({ type: ALL_CATEGORIES_SUCCESS, payload: data });
+  } catch (error) {
+    toast.error(error?.response?.data?.message || error.message);
+    dispatch({
+      type: ALL_CATEGORIES_FAIL,
       payload: error?.response?.data?.message || error.message,
     });
   }

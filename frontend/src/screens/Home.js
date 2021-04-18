@@ -22,7 +22,7 @@ const Home = ({ match }) => {
   return (
     <>
       {!keyword && <TopProductCarousel />}
-      <h1>latest Products</h1>
+      <h1>New Arrivals</h1>
       {loading ? (
         <Loader />
       ) : error ? (

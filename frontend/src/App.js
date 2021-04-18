@@ -11,8 +11,8 @@ const App = () => (
   <Router>
     <Header />
     <ToastContainer
-      position="bottom-right"
-      autoClose={3000}
+      position="bottom-center"
+      autoClose={2500}
       hideProgressBar
       transition={Slide}
       newestOnTop

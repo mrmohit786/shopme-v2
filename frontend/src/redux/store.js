@@ -15,6 +15,7 @@ import {
   productDetailsReducer,
   createProductReviewReducer,
   getTopProductsReducer,
+  getAllCategoriesReducer,
 } from './reducers/products';
 import {
   userDetailsReducer,
@@ -37,6 +38,7 @@ const reducer = combineReducers({
   myOrderLists: myOrderListsReducer,
   createProductReview: createProductReviewReducer,
   topProducts: getTopProductsReducer,
+  allCategories: getAllCategoriesReducer,
 });
 
 const middleware = [thunk];

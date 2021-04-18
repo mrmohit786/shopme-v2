@@ -6,7 +6,7 @@ import products from './data/products.js';
 import User from './models/users.js';
 import Product from './models/products.js';
 import Order from './models/orders.js';
-import connectDB from './config/database';
+import connectDB from './config/database.js';
 
 dotenv.config();
 connectDB();
