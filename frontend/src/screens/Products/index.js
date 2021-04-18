@@ -116,13 +116,16 @@ const Products = ({ history, match }) => {
               <Breadcrumb.Item>Home</Breadcrumb.Item>
             </LinkContainer>
             <LinkContainer to="/" exact>
-              <Breadcrumb.Item>{product.category}</Breadcrumb.Item>
+              <Breadcrumb.Item>{product?.category?.name}</Breadcrumb.Item>
             </LinkContainer>
             <LinkContainer to="/" exact>
-              <Breadcrumb.Item>{product.subCategory}</Breadcrumb.Item>
+              <Breadcrumb.Item>{product?.subCategory?.name}</Breadcrumb.Item>
             </LinkContainer>
             <LinkContainer to="/" exact>
-              <Breadcrumb.Item active>{product.name}</Breadcrumb.Item>
+              <Breadcrumb.Item>{product?.productType?.name}</Breadcrumb.Item>
+            </LinkContainer>
+            <LinkContainer to="/" exact>
+              <Breadcrumb.Item active>{product?.name}</Breadcrumb.Item>
             </LinkContainer>
           </Breadcrumb>
           <Row>

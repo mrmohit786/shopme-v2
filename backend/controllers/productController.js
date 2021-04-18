@@ -80,7 +80,10 @@ export const createProducts = asynchandler(async (req, res) => {
 // @route GET /api/products/:id
 // @access Public
 export const getProductById = asynchandler(async (req, res) => {
-  const product = await Product.findById(req.params.id);
+  const product = await Product.findById(req.params.id)
+    .populate('category', 'name')
+    .populate('subCategory', 'name')
+    .populate('productType', 'name');
   if (product) {
     res.status(200).json(product);
   } else {
