@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable import/prefer-default-export */
 export const Logger = {
   info: (...msg) => {
     const [error, ...extra] = msg;

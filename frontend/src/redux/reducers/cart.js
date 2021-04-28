@@ -1,6 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable no-else-return */
-/* eslint-disable no-case-declarations */
 import {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,
