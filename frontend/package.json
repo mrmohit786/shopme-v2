@@ -35,7 +35,18 @@
     "test": "craco test",
     "eject": "react-scripts eject",
     "prettier": "prettier --write src/",
-    "eslint": "eslint — fix src/"
+    "eslint": "eslint — fix src/",
+    "babel-eslint": "^10.1.0",
+    "@craco/craco": "^6.1.1",
+    "craco-alias": "^2.2.0",
+    "eslint": "^7.23.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-react": "^7.23.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "prettier": "^2.2.1",
+    "pretty-quick": "^3.1.0"
   },
   "eslintConfig": {
     "extends": [
@@ -54,19 +65,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "@craco/craco": "^6.1.1",
-    "craco-alias": "^2.2.0",
-    "eslint": "^7.23.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-react": "^7.23.1",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "prettier": "^2.2.1",
-    "pretty-quick": "^3.1.0"
   },
   "husky": {
     "hooks": {
