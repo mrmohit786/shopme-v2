@@ -6,6 +6,7 @@ import routes from './routes/routes.js';
 import { errorHandler, notFound } from './middleware/error.js';
 import morgan from 'morgan';
 import env from './config/env.js';
+import path from 'path';
 
 const app = express();
 app.use(express.json());
@@ -31,15 +32,25 @@ if (env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-app.get('/', (req, res) => {
-  res.send('E-MART APIs');
-});
-
 app.use('/api', routes);
 
 // PayPal
 app.get('/api/config/paypal', (req, res) => res.send(env.PAYPAL_CLIENT_ID));
 
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/frontend/build')));
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+  );
+} else {
+  app.get('/', (req, res) => {
+    res.send('API is running....');
+  });
+}
 // middleware
 app.use(notFound);
 app.use(errorHandler);
