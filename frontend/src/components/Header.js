@@ -6,6 +6,7 @@ import { Search } from 'components';
 import { getAllCategories } from 'redux/actions/products';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from 'redux/actions/user';
+import { APPLICATION_NAME } from 'utils/constants';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const Header = () => {
       <Navbar bg="info" variant="dark" collapseOnSelect expand="lg">
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand>EMart</Navbar.Brand>
+            <Navbar.Brand>{APPLICATION_NAME}</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -52,20 +53,6 @@ const Header = () => {
               )}
             </Nav>
           </Navbar.Collapse>
-        </Container>
-      </Navbar>
-      <Navbar bg="primary" variant="dark" collapseOnSelect expand="lg">
-        <Container>
-          {error && <h3>Problem in loading categories</h3>}
-          {loading ? (
-            <p>Fetching Categories</p>
-          ) : (
-            categories?.map((category) => (
-              <LinkContainer to="/">
-                <Navbar.Brand>{category.name}</Navbar.Brand>
-              </LinkContainer>
-            ))
-          )}
         </Container>
       </Navbar>
     </header>

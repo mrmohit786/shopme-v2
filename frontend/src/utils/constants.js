@@ -2,6 +2,11 @@ export const RATING_DEFAULT_COLOR = '#f8e825';
 export const PRICE = '₹';
 export const AES_IV = 'qbgzadbbidewwmps';
 
+export const APPLICATION_NAME = 'ShopME';
+
+export const STRIPE_PUB_KEY =
+  'pk_test_51Iknt0SIWoumlmr2o1ufQCz68OLuaAAP571tgslHRKsLB6WMxVy1qDjEFZ5mcDA89B5642JZPnJpzJBfQEL62Yf100LsXpWVCf';
+
 export const MESSAGE = {
   LOGIN: 'Successfully Login',
   LOGOUT: 'Successfully Logout',
@@ -26,5 +31,5 @@ export const RATING_MESSAGE = {
   5: { message: 'Excellent', color: '#000' },
 };
 
-export const PAGE_LIMIT = 4;
+export const PAGE_LIMIT = 8;
 export const TOP_PRODUCTS_LIMIT = 3;

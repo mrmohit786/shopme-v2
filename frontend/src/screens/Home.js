@@ -36,7 +36,9 @@ const Home = ({ match }) => {
               </Col>
             ))}
           </Row>
-          <Paginate pages={pages} page={page} keyword={keyword || ''} />
+          <Row className="text-center">
+            <Paginate pages={pages} page={page} keyword={keyword || ''} />
+          </Row>
         </>
       )}
     </>

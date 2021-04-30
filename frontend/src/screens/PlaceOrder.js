@@ -3,11 +3,11 @@ import { Button, Row, Col, ListGroup, Image } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import CheckoutSteps from '../components/CheckoutSteps';
-import Message from '../components/Message';
-import { createOrder } from '../redux/actions/order';
-import { PRICE } from '../utils/constants';
-import { addDecimals } from '../utils/utility';
+import CheckoutSteps from 'components/CheckoutSteps';
+import Message from 'components/Message';
+import { createOrder } from 'redux/actions/order';
+import { PRICE } from 'utils/constants';
+import { addDecimals } from 'utils/utility';
 
 const PlaceOrder = ({ history }) => {
   const dispatch = useDispatch();

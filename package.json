@@ -28,7 +28,8 @@
     "express-async-handler": "^1.1.4",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.12.2"
+    "mongoose": "^5.12.2",
+    "stripe": "^8.145.0"
   },
   "devDependencies": {
     "concurrently": "^6.0.0",

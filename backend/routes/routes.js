@@ -34,6 +34,10 @@ import {
   createProductsType,
   getAllProductsType,
 } from '../controllers/productTypeController.js';
+import {
+  createPayment,
+  stripeWebhooks,
+} from '../controllers/paymentController.js';
 
 const router = express.Router();
 
@@ -70,4 +74,7 @@ router.route('/orders/myorders').get(auth, getMyOrders);
 router.route('/orders/:id').get(auth, getOrderByID);
 router.route('/orders/:id/pay').put(auth, updateOrderToPaid);
 
+// payment
+router.route('/payment/stripe').post(auth, createPayment);
+router.route('/payment/stripe/webhooks').post(stripeWebhooks);
 export default router;
