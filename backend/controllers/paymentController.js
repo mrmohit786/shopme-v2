@@ -1,6 +1,8 @@
 import asynchandler from 'express-async-handler';
-import env from './config/env.js';
-const stripe = require('stripe')(env.STRIPE_PRIVATE_KEY);
+import env from '../config/env.js';
+import Stripe from 'stripe';
+
+const stripe = new Stripe(env.STRIPE_PRIVATE_KEY);
 
 // @desc Create stripe payment
 // @route POST /api/payment/stripe
