@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -9,9 +7,6 @@ import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { makeStyles } from '@material-ui/core/styles';
 import CardInput from './components/StripeCard';
 import { connect } from 'react-redux';
-import { STRIPE_PUB_KEY } from 'utils/constants';
-
-const stripePromise = loadStripe(STRIPE_PUB_KEY);
 
 const useStyles = makeStyles({
   root: {
@@ -79,24 +74,22 @@ function StripePayment({ userDetails }) {
   };
 
   return (
-    <Elements stripe={stripePromise}>
-      <Card className={classes.root}>
-        <CardContent className={classes.content}>
-          <CardInput />
-          <div className={classes.div}>
-            <Button
-              variant="contained"
-              color="primary"
-              disabled={isLoading}
-              className={classes.button}
-              onClick={handleSubmitPay}
-            >
-              PLACE ORDER
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    </Elements>
+    <Card className={classes.root}>
+      <CardContent className={classes.content}>
+        <CardInput />
+        <div className={classes.div}>
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={isLoading}
+            className={classes.button}
+            onClick={handleSubmitPay}
+          >
+            PLACE ORDER
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 
