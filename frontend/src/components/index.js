@@ -12,6 +12,7 @@ import Rating from './Rating';
 import FormContainer from './FormContainer';
 import LoadingButton from './LoadingButton';
 import StripePayment from './Stripe';
+import ErrorBoundary from './ErrorBoundary';
 
 export {
   Header,
@@ -28,4 +29,5 @@ export {
   FormContainer,
   LoadingButton,
   StripePayment,
+  ErrorBoundary,
 };
