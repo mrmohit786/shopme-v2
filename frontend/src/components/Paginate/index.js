@@ -19,8 +19,8 @@ const Paginate = ({ pages, page, isAdmin, keyword }) =>
 
 Paginate.propTypes = {
   isAdmin: PropTypes.bool,
-  pages: PropTypes.any.isRequired,
-  page: PropTypes.any.isRequired,
+  pages: PropTypes.number,
+  page: PropTypes.number,
   keyword: PropTypes.string.isRequired,
 };
 

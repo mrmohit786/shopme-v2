@@ -22,13 +22,13 @@ const Home = ({ match }) => {
   return (
     <>
       {!keyword && <TopProductCarousel />}
-      <h1>New Arrivals</h1>
       {loading ? (
         <Loader />
       ) : error ? (
         <Message>{error}</Message>
       ) : (
         <>
+          <h1>New Arrivals</h1>
           <Row>
             {products?.map((product) => (
               <Col key={product._id} sm={12} md={6} lg={4} xl={3}>

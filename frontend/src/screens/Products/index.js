@@ -32,12 +32,13 @@ const customStyles = {
   },
 };
 const Products = ({ history, match }) => {
+  const productId = match.params.id;
+  const { loading, error, product } = useSelector((state) => state.productDetails);
   const [qty, setQty] = useState(1);
   const [comment, setComments] = useState(0);
   const [rating, setRating] = useState(0);
   const [openReviewModal, setReviewModal] = React.useState(false);
   const dispatch = useDispatch();
-  const { loading, error, product } = useSelector((state) => state.productDetails);
   const { userInfo } = useSelector((state) => state.userLogin);
   const {
     loading: loadingProductReview,
@@ -46,22 +47,24 @@ const Products = ({ history, match }) => {
   } = useSelector((state) => state.createProductReview);
 
   useEffect(() => {
+    dispatch(listProductDetails(productId));
+  }, [dispatch, productId]);
+
+  useEffect(() => {
     if (successProductReview) {
       setRating(0);
       setComments('');
       dispatch({ type: CREATE_PRODUCT_REVIEW_RESET });
     }
-
-    dispatch(listProductDetails(match.params.id));
   }, [dispatch, match, successProductReview]);
 
   const handleAddToCart = () => {
-    history.push(`/cart/${match.params.id}?qty=${qty}`);
+    history.push(`/cart/${productId}?qty=${qty}`);
   };
 
   const submitReviewHandler = (e) => {
     e.preventDefault();
-    dispatch(createProductReview(match.params.id, { rating, comment }));
+    dispatch(createProductReview(productId, { rating, comment }));
   };
 
   const afterOpenModal = () => {

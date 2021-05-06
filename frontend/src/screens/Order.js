@@ -9,11 +9,20 @@ import { ORDER_PAY_RESET } from '../redux/actionTypes';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { getOrderDetails, payOrder } from '../redux/actions/order';
-import { PRICE } from '../utils/constants';
+import { PRICE, STRIPE_PUB_KEY } from '../utils/constants';
+import { StripePayment } from 'components';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 const Order = ({ match }) => {
+  const stripePromise = loadStripe(STRIPE_PUB_KEY);
   const dispatch = useDispatch();
   const orderId = match.params.id;
+
+  const cart = useSelector((state) => state.cart);
+
+  const { paymentMethod } = cart;
+
   const [ispayPalReady, setPayPalReady] = useState(false);
   const { order, loading, error } = useSelector((state) => state.orderDetails);
   const { loading: loadingPay, success: successPay, error: errorPay } = useSelector(
@@ -21,25 +30,36 @@ const Order = ({ match }) => {
   );
 
   useEffect(() => {
-    const addPayPalScript = async () => {
-      const { data: clientId } = await axios.get('/api/config/paypal');
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
-      script.async = true;
-      script.onload = () => setPayPalReady(true);
+    if (paymentMethod === 'PayPal') {
+      const addPayPalScript = async () => {
+        const { data: clientId } = await axios.get('/api/config/paypal');
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+        script.async = true;
+        script.onload = () => setPayPalReady(true);
 
-      document.body.appendChild(script);
-    };
-    if (!order || successPay) {
-      dispatch({ type: ORDER_PAY_RESET });
-      dispatch(getOrderDetails(orderId));
-    } else if (!order.isPaid) {
-      addPayPalScript();
-    } else {
-      setPayPalReady(true);
+        document.body.appendChild(script);
+      };
+      if (!order || successPay) {
+        dispatch({ type: ORDER_PAY_RESET });
+        dispatch(getOrderDetails(orderId));
+      } else if (!order.isPaid) {
+        addPayPalScript();
+      } else {
+        setPayPalReady(true);
+      }
+    } else if (paymentMethod === 'Stripe') {
+      if (!order || successPay) {
+        dispatch({ type: ORDER_PAY_RESET });
+        dispatch(getOrderDetails(orderId));
+      }
     }
-  }, [dispatch, order, orderId, successPay]);
+  }, [dispatch, order, orderId, paymentMethod, successPay]);
+
+  useEffect(() => {
+    dispatch(getOrderDetails(orderId));
+  }, [dispatch, orderId]);
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, paymentResult));
@@ -160,7 +180,11 @@ const Order = ({ match }) => {
             {!order.isPaid && (
               <ListGroup.Item>
                 {loadingPay && <Loader />}
-                {!ispayPalReady ? (
+                {paymentMethod === 'Stripe' ? (
+                  <Elements stripe={stripePromise}>
+                    <StripePayment amount={order.totalPrice} onSuccess={successPaymentHandler} />
+                  </Elements>
+                ) : !ispayPalReady ? (
                   <Loader />
                 ) : (
                   <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler} />

@@ -14,26 +14,28 @@ const TopProductCarousel = () => {
     dispatch(listTopProducts());
   }, [dispatch]);
 
-  return loading ? (
-    <Loader />
-  ) : error ? (
+  return error ? (
     <Message variant="danger">{error}</Message>
   ) : (
     <Carousel pause="hover" className="bg-dark">
-      {products.map((product) => (
-        <Carousel.Item key={product._id}>
-          <Link to={`/product/${product._id}`}>
-            <Image src={product.image} alt={product.name} fluid />
-            <Carousel.Caption className="carousel-caption">
-              <h2>{product.brand}</h2>
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
-            </Carousel.Caption>
-          </Link>
-        </Carousel.Item>
-      ))}
+      {products ? (
+        products.map((product) => (
+          <Carousel.Item key={product._id}>
+            <Link to={`/product/${product._id}`}>
+              <Image src={product.image} alt={product.name} fluid />
+              <Carousel.Caption className="carousel-caption">
+                <h2>{product.brand}</h2>
+                <h3>{product.name}</h3>
+                <p>{product.description}</p>
+              </Carousel.Caption>
+            </Link>
+          </Carousel.Item>
+        ))
+      ) : (
+        <Loader />
+      )}
     </Carousel>
   );
 };
 
-export default TopProductCarousel;
+export default React.memo(TopProductCarousel);

@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route } from 'react-router-dom';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Search } from 'components';
-import { getAllCategories } from 'redux/actions/products';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from 'redux/actions/user';
 import { APPLICATION_NAME } from 'utils/constants';
@@ -11,11 +10,6 @@ import { APPLICATION_NAME } from 'utils/constants';
 const Header = () => {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userLogin);
-  const { loading, error, categories } = useSelector((state) => state.allCategories);
-
-  useEffect(() => {
-    dispatch(getAllCategories());
-  }, [dispatch]);
 
   const logoutHandler = () => {
     dispatch(logout());

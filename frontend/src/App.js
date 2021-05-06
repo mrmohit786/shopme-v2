@@ -19,7 +19,7 @@ const App = () => (
       closeOnClick
       rtl={false}
       pauseOnFocusLoss
-      draggable={false}
+      draggable={true}
       pauseOnHover
     />
     <main className="py-3">

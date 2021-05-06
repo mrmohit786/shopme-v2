@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Form, Button, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import FormContainer from '../components/FormContainer';
-import { savePaymentMethod } from '../redux/actions/cart';
-import CheckoutSteps from '../components/CheckoutSteps';
+import FormContainer from 'components/FormContainer';
+import { savePaymentMethod } from 'redux/actions/cart';
+import CheckoutSteps from 'components/CheckoutSteps';
 
 const Payment = ({ history }) => {
   const { shippingAddress } = useSelector((state) => state.cart);
@@ -23,6 +23,10 @@ const Payment = ({ history }) => {
     history.push('/placeorder');
   };
 
+  const handlePaymentCheckbox = (event) => {
+    setPaymentMethod(event.target.value);
+  };
+
   return (
     <FormContainer>
       <CheckoutSteps step1 step2 step3 />
@@ -34,21 +38,22 @@ const Payment = ({ history }) => {
           <Col>
             <Form.Check
               type="radio"
-              label="PayPal or Credit Card"
+              label="PayPal"
               id="PayPal"
-              name="paymentMethod"
+              name="paypalPayment"
               value="PayPal"
-              checked
-              onChange={(e) => setPaymentMethod(e.target.value)}
+              checked={paymentMethod === 'PayPal'}
+              onChange={handlePaymentCheckbox}
             />
-            {/* <Form.Check
+            <Form.Check
               type="radio"
               label="Stripe"
               id="Stripe"
-              name="paymentMethod"
+              name="stripePayment"
               value="Stripe"
-              onChange={(e) => setPaymentMethod(e.target.value)}
-            /> */}
+              checked={paymentMethod === 'Stripe'}
+              onChange={handlePaymentCheckbox}
+            />
           </Col>
         </Form.Group>
         <Button type="submit" variant="info">
