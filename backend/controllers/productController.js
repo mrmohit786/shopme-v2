@@ -21,10 +21,9 @@ export const getProducts = asynchandler(async (req, res) => {
 
   let products = await Product.find({ ...isSearched })
     .populate('category', 'name')
-    .populate('subCategory', 'name')
-    .populate('productType', 'name')
     .limit(limit)
-    .skip(limit * (page - 1));
+    .skip(limit * (page - 1))
+    .lean();
 
   res.status(200).json({
     products,
@@ -44,8 +43,6 @@ export const createProducts = asynchandler(async (req, res) => {
     description,
     brand,
     categoryId,
-    subCategoryId,
-    productTypeId,
     price,
     countInStock,
     rating,
@@ -59,8 +56,6 @@ export const createProducts = asynchandler(async (req, res) => {
     description,
     brand,
     category: categoryId,
-    subCategory: subCategoryId,
-    productType: productTypeId,
     price,
     countInStock,
     rating,
@@ -80,10 +75,7 @@ export const createProducts = asynchandler(async (req, res) => {
 // @route GET /api/products/:id
 // @access Public
 export const getProductById = asynchandler(async (req, res) => {
-  const product = await Product.findById(req.params.id)
-    .populate('category', 'name')
-    .populate('subCategory', 'name')
-    .populate('productType', 'name');
+  const product = await Product.findById(req.params.id).populate('category', 'name');
   if (product) {
     res.status(200).json(product);
   } else {
@@ -134,6 +126,6 @@ export const createProductReview = asynchandler(async (req, res) => {
 // @access Public
 export const getTopProducts = asynchandler(async (req, res) => {
   const limit = Number(req.query.limit);
-  const products = await Product.find({}).sort({ rating: -1 }).limit(limit);
+  const products = await Product.find({}).sort({ rating: -1 }).limit(limit).lean();
   res.json(products);
 });

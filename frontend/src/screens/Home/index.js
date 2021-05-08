@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { listProducts } from 'redux/actions/products';
+import { listProducts, listTopProducts } from 'redux/actions/products';
 import { ProductCarousel, Loader, Message, Paginate, ProductCard } from 'components';
 
 const Home = ({ match }) => {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
+  const topProducts = useSelector((state) => state.topProducts);
   const { loading, error, products, pages, page } = productList;
   const { keyword, page: pageNumber } = match.params;
 
@@ -15,9 +16,13 @@ const Home = ({ match }) => {
     dispatch(listProducts(keyword, pageNumber));
   }, [dispatch, keyword, pageNumber]);
 
+  useEffect(() => {
+    dispatch(listTopProducts());
+  }, [dispatch]);
+
   return (
     <>
-      {!keyword && <ProductCarousel />}
+      {!keyword && <ProductCarousel topProducts={topProducts} />}
       {loading ? (
         <Loader />
       ) : error ? (

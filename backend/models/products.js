@@ -13,7 +13,7 @@ const reviewSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const productSchema = mongoose.Schema(
@@ -39,16 +39,6 @@ const productSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'category',
-    },
-    subCategory: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'subCategory',
-    },
-    productType: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'productType',
     },
     description: {
       type: String,
@@ -78,7 +68,7 @@ const productSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const Product = mongoose.model('products', productSchema);

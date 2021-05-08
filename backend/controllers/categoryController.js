@@ -6,7 +6,11 @@ import Category from '../models/category.js';
 // @access Public
 export const getAllCategories = asynchandler(async (req, res) => {
   const categories = await Category.find({});
-  res.status(200).json(categories);
+  if (categories) {
+    res.status(200).json({ data: categories });
+  } else {
+    res.status(404).json({ error: 'Categories not found' });
+  }
 });
 
 // @desc create categories
