@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { RATING_DEFAULT_COLOR } from '../utils/constants';
+import { RATING_DEFAULT_COLOR } from 'utils/constants';
 
 const Rating = ({ value, text, color }) => (
   <>

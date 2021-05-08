@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { Form, Button, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import FormContainer from 'components/FormContainer';
 import { savePaymentMethod } from 'redux/actions/cart';
-import CheckoutSteps from 'components/CheckoutSteps';
+import { CheckoutSteps, FormContainer } from 'components';
 
 const Payment = ({ history }) => {
   const { shippingAddress } = useSelector((state) => state.cart);

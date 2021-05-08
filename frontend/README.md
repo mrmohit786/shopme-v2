@@ -1,2 +1,2 @@
-# Getting Started with Create React App
+# ShopMe Client Application
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

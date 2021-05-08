@@ -1,9 +1,7 @@
-import './App.css';
 import React from 'react';
 import { Slide, ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import { Header, Footer } from 'components';
 import 'react-toastify/dist/ReactToastify.css';
 import AppRoutes from './routes';
 

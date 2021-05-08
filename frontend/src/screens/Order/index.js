@@ -5,12 +5,10 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { PayPalButton } from 'react-paypal-button-v2';
 import PropTypes from 'prop-types';
-import { ORDER_PAY_RESET } from '../redux/actionTypes';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
-import { getOrderDetails, payOrder } from '../redux/actions/order';
-import { PRICE, STRIPE_PUB_KEY } from '../utils/constants';
-import { StripePayment } from 'components';
+import { ORDER_PAY_RESET } from 'redux/actionTypes';
+import { Message, Loader, StripePayment } from 'components';
+import { getOrderDetails, payOrder } from 'redux/actions/order';
+import { PRICE, STRIPE_PUB_KEY } from 'utils/constants';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 

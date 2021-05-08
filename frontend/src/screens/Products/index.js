@@ -11,7 +11,6 @@ import {
   ListGroup,
   Row,
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Ratings from 'react-ratings-declarative';
@@ -241,7 +240,7 @@ const Products = ({ history, match }) => {
                 ))}
                 <ListGroup.Item>
                   {errorProductReview && <Message variant="danger">{errorProductReview}</Message>}
-                  {userInfo ? (
+                  {userInfo && (
                     <>
                       <Button variant="primary" onClick={() => setReviewModal(true)}>
                         Add Review
@@ -256,10 +255,6 @@ const Products = ({ history, match }) => {
                         component={RatingModalComponent}
                       />
                     </>
-                  ) : (
-                    <Message>
-                      Please <Link to="/login">login</Link> to write a review.
-                    </Message>
                   )}
                 </ListGroup.Item>
               </ListGroup>

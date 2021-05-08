@@ -2,9 +2,8 @@ import Header from './Header';
 import Loader from './Loader';
 import Message from './Message';
 import Footer from './Footer';
-import Product from './Product';
 import CheckoutSteps from './CheckoutSteps';
-import Carousel from './Carousel';
+import ProductCarousel from './ProductCarousel';
 import Modal from './Modal';
 import Paginate from './Paginate';
 import Search from './Search';
@@ -13,15 +12,15 @@ import FormContainer from './FormContainer';
 import LoadingButton from './LoadingButton';
 import StripePayment from './Stripe';
 import ErrorBoundary from './ErrorBoundary';
+import ProductCard from './ProductCard';
 
 export {
   Header,
   Loader,
   Message,
   Footer,
-  Product,
   CheckoutSteps,
-  Carousel,
+  ProductCarousel,
   Modal,
   Paginate,
   Search,
@@ -30,4 +29,5 @@ export {
   LoadingButton,
   StripePayment,
   ErrorBoundary,
+  ProductCard,
 };

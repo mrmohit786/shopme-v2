@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Carousel, Image } from 'react-bootstrap';
-import Loader from 'components/Loader';
-import Message from 'components/Message';
+import { Loader, Message } from 'components';
 import { listTopProducts } from 'redux/actions/products';
 import { useSelector, useDispatch } from 'react-redux';
 
-const TopProductCarousel = () => {
+const ProductCarousel = () => {
   const dispatch = useDispatch();
   const { loading, error, products } = useSelector((state) => state.topProducts);
 
@@ -38,4 +37,4 @@ const TopProductCarousel = () => {
   );
 };
 
-export default React.memo(TopProductCarousel);
+export default React.memo(ProductCarousel);
