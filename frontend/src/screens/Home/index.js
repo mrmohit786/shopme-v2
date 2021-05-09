@@ -17,8 +17,10 @@ const Home = ({ match }) => {
   }, [dispatch, keyword, pageNumber]);
 
   useEffect(() => {
-    dispatch(listTopProducts());
-  }, [dispatch]);
+    if (topProducts?.products.length === 0) {
+      dispatch(listTopProducts());
+    }
+  }, [dispatch, topProducts?.products.length]);
 
   return (
     <>

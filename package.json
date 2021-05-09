@@ -1,6 +1,6 @@
 {
-  "name": "e-mart",
-  "version": "1.0.0",
+  "name": "shopme-api",
+  "version": "2.0.0",
   "description": "E commerce website",
   "main": "server.js",
   "type": "module",

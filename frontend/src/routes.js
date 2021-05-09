@@ -16,7 +16,7 @@ const PlaceOrder = lazy(() => import('screens/PlaceOrder'));
 const Order = lazy(() => import('screens/Order'));
 
 const AppRoutes = () => (
-  <Container>
+  <div>
     <Switch>
       <ErrorBoundary>
         <Suspense fallback={<Loader />}>
@@ -36,7 +36,7 @@ const AppRoutes = () => (
         </Suspense>
       </ErrorBoundary>
     </Switch>
-  </Container>
+  </div>
 );
 
 export default AppRoutes;
