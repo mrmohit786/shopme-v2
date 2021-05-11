@@ -4,7 +4,7 @@ import compression from 'compression';
 import connectDB from './config/database.js';
 import routes from './routes/routes.js';
 import { errorHandler, notFound } from './middleware/error.js';
-import morgan from 'morgan';
+import logger from 'morgan';
 import cors from 'cors';
 import env from './config/env.js';
 import path from 'path';
@@ -12,13 +12,33 @@ import path from 'path';
 connectDB();
 
 const app = express();
-
 app.use(express.json());
 app.use(cors());
 
 if (env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
+  app.use(logger('dev'));
 }
+
+app.use(
+  express.json({
+    // We need the raw body to verify webhook signatures.
+    // Let's compute it only when hitting the Stripe webhook endpoint.
+    verify: function (req, res, buf) {
+      if (req.originalUrl.includes('/webhook')) {
+        req.rawBody = buf.toString();
+      }
+    },
+  }),
+);
+
+app.use(express.urlencoded({ extended: false }));
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
 
 const __dirname = path.resolve();
 if (process.env.NODE_ENV === 'production') {

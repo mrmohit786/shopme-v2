@@ -1,47 +1,18 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { LOCALSTORAGE } from '../utils/constants';
 import { loadState } from '../utils/utility';
-import { cartReducer } from './reducers/cart';
-import {
-  myOrderListsReducer,
-  orderCreateReducer,
-  orderDetailsReducer,
-  orderPayReducer,
-} from './reducers/order';
-import {
-  productListReducer,
-  productDetailsReducer,
-  createProductReviewReducer,
-  getTopProductsReducer,
-  getAllCategoriesReducer,
-} from './reducers/products';
-import {
-  userDetailsReducer,
-  userLoginReducer,
-  userRegisterReducer,
-  userUpdateProfileReducer,
-} from './reducers/user';
+import rootReducer from 'redux/reducers';
 
-const reducer = combineReducers({
-  productList: productListReducer,
-  productDetails: productDetailsReducer,
-  cart: cartReducer,
-  userLogin: userLoginReducer,
-  userRegister: userRegisterReducer,
-  userDetails: userDetailsReducer,
-  userUpdateProfile: userUpdateProfileReducer,
-  orderCreate: orderCreateReducer,
-  orderDetails: orderDetailsReducer,
-  orderPay: orderPayReducer,
-  myOrderLists: myOrderListsReducer,
-  createProductReview: createProductReviewReducer,
-  topProducts: getTopProductsReducer,
-  allCategories: getAllCategoriesReducer,
-});
+const __DEV__ = process.env.NODE_ENV !== 'production';
 
 const middleware = [thunk];
+
+if (__DEV__) {
+  middleware.push(logger);
+}
 
 const getCartItemsFromStorage = loadState(LOCALSTORAGE.CART_INFO)
   ? loadState(LOCALSTORAGE.CART_INFO)
@@ -69,7 +40,7 @@ const initialState = {
 };
 
 const store = createStore(
-  reducer,
+  rootReducer,
   initialState,
   composeWithDevTools(applyMiddleware(...middleware)),
 );
