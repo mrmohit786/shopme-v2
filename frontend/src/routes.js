@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { Route } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
 import { ErrorBoundary, Loader } from 'components';
+import Card  from 'newComponents/Card';
 import Home from 'screens/Home';
 import { Switch } from 'react-router-dom';
 
@@ -20,6 +20,7 @@ const AppRoutes = () => (
     <Switch>
       <ErrorBoundary>
         <Suspense fallback={<Loader />}>
+          <Route exact path="/new_card" component={Card} />
           <Route path="/product/:id" component={Products} />
           <Route path="/cart/:id?" component={Cart} />
           <Route path="/login" component={Login} />

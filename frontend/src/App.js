@@ -1,13 +1,14 @@
 import React from 'react';
 import { Slide, ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Header, Footer } from 'components';
 import 'react-toastify/dist/ReactToastify.css';
 import AppRoutes from './routes';
+import NewFooter from 'newComponents/NewFooter';
+import PrimarySearchAppBar from 'newComponents/Header';
 
 const App = () => (
   <Router>
-    <Header />
+    <PrimarySearchAppBar />
     <ToastContainer
       position="bottom-center"
       autoClose={2500}
@@ -23,7 +24,7 @@ const App = () => (
     <main className="py-3">
       <AppRoutes />
     </main>
-    <Footer />
+    <NewFooter />
   </Router>
 );
 
