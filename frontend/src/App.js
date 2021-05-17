@@ -3,7 +3,7 @@ import { Slide, ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Header, Footer } from 'components';
 import 'react-toastify/dist/ReactToastify.css';
-import AppRoutes from './routes';
+import AppRoutes from './AppRoutes';
 
 const App = () => (
   <Router>

@@ -20,6 +20,9 @@ export const API = {
   url: 'http://127.0.0.1:8080/api',
 };
 
+export const PRODUCT_FALLBACK_IMAGE =
+  'https://via.placeholder.com/295x295?text=Image+Not+Available';
+
 export const LOCALSTORAGE = {
   USER_INFO: 'user_info',
   CART_INFO: 'cart_info',

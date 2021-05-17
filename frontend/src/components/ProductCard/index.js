@@ -4,7 +4,7 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { PRICE } from 'utils/constants';
+import { PRICE, PRODUCT_FALLBACK_IMAGE } from 'utils/constants';
 import { Rating } from 'components';
 
 const ProductCard = ({ product }) => (
@@ -15,8 +15,9 @@ const ProductCard = ({ product }) => (
           <div style={{ maxWidth: '300px', maxHeight: '400px' }}>
             <Link to={`/product/${product._id}`}>
               <Card.Img
+                as="img"
                 style={{ width: '100%', height: '100%' }}
-                src={product.image}
+                src={product.imawge || PRODUCT_FALLBACK_IMAGE}
                 variant="top"
               />
             </Link>

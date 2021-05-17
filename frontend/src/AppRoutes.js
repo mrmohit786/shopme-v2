@@ -1,6 +1,5 @@
 import React, { lazy, Suspense } from 'react';
 import { Route } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
 import { ErrorBoundary, Loader } from 'components';
 import Home from 'screens/Home';
 import { Switch } from 'react-router-dom';
