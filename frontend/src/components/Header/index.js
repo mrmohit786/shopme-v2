@@ -26,7 +26,7 @@ const Header = () => {
   const listCategories = async () => {
     const res = await getCategories().catch((e) => {
       debugger;
-      toast.error(e.data.error);
+      toast.error(e?.data?.error);
     });
     if (res) {
       setCategories(res.data);
@@ -67,14 +67,14 @@ const Header = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <div className="d-flex justify-content-around">
+      {/* <div className="d-flex justify-content-around">
         {categories?.map((category) => (
           <Link to={`/category/${category._id}`}>
             <i className="fas fa-shopping-cart" />
             <p>{category.name}</p>
           </Link>
         ))}
-      </div>
+      </div> */}
     </header>
   );
 };

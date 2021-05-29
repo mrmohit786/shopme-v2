@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import { ErrorBoundary, Loader } from 'components';
 import Home from 'screens/Home';
 import { Switch } from 'react-router-dom';
+import ScrollToTop from 'shared/components/ScrollToTop';
 
 const Products = lazy(() => import('screens/Products'));
 const Cart = lazy(() => import('screens/Cart'));
@@ -15,10 +16,10 @@ const PlaceOrder = lazy(() => import('screens/PlaceOrder'));
 const Order = lazy(() => import('screens/Order'));
 
 const AppRoutes = () => (
-  <div>
-    <Switch>
-      <ErrorBoundary>
-        <Suspense fallback={<Loader />}>
+  <Switch>
+    <ErrorBoundary>
+      <Suspense fallback={<Loader />}>
+        <ScrollToTop>
           <Route path="/product/:id" component={Products} />
           <Route path="/cart/:id?" component={Cart} />
           <Route path="/login" component={Login} />
@@ -32,10 +33,10 @@ const AppRoutes = () => (
           <Route path="/search/:keyword" component={Home} />
           <Route path="/page/:page" component={Home} />
           <Route path="/" component={Home} exact />
-        </Suspense>
-      </ErrorBoundary>
-    </Switch>
-  </div>
+        </ScrollToTop>
+      </Suspense>
+    </ErrorBoundary>
+  </Switch>
 );
 
 export default AppRoutes;

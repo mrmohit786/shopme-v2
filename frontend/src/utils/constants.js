@@ -23,7 +23,7 @@ export const API = {
 export const PRODUCT_FALLBACK_IMAGE =
   'https://via.placeholder.com/295x295?text=Image+Not+Available';
 
-export const LOCALSTORAGE = {
+export const STORAGE = {
   USER_INFO: 'user_info',
   CART_INFO: 'cart_info',
   SHIPPING_INFO: 'shipping_address_info',

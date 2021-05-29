@@ -2,7 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { LOGIN, PROFILE, REGISTER } from '../../utils/apiRoutes';
 import { saveState, removeState } from '../../utils/utility';
-import { LOCALSTORAGE, MESSAGE } from '../../utils/constants';
+import { STORAGE, MESSAGE } from '../../utils/constants';
 import {
   MY_ORDER_LISTS_REQUEST,
   USER_DETAILS_FAIL,
@@ -39,7 +39,7 @@ export const login = (email, password) => async (dispatch) => {
       type: USER_LOGIN_SUCCESS,
       payload: data,
     });
-    saveState(data, LOCALSTORAGE.USER_INFO);
+    saveState(data, STORAGE.USER_INFO);
     toast.success(MESSAGE.LOGIN);
   } catch (error) {
     toast.error(error?.response?.data?.message || error.message);
@@ -51,7 +51,7 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const logout = () => async (dispatch) => {
-  removeState(LOCALSTORAGE.USER_INFO);
+  removeState(STORAGE.USER_INFO);
   dispatch({ type: MY_ORDER_LISTS_REQUEST });
   dispatch({ type: USER_DETAILS_RESET });
   dispatch({ type: USER_LOGOUT });
@@ -81,7 +81,7 @@ export const register = (name, email, password) => async (dispatch) => {
       type: USER_LOGIN_SUCCESS,
       payload: data,
     });
-    saveState(data, LOCALSTORAGE.USER_INFO);
+    saveState(data, STORAGE.USER_INFO);
     toast.success(MESSAGE.REGISTER);
   } catch (error) {
     toast.error(error?.response?.data?.message || error.message);

@@ -25,7 +25,8 @@ export const listProducts = (keyword = '', page = 1, limit = PAGE_LIMIT) => asyn
     dispatch({ type: PRODUCT_LIST_REQUEST });
 
     const { data } = await axios.get(`${PRODUCTS}?keyword=${keyword}&page=${page}&limit=${limit}`);
-
+    if (data) {
+    }
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
     toast.error(error?.response?.data?.message || error.message);

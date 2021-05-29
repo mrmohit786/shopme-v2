@@ -20,6 +20,8 @@ import {
   userUpdateProfileReducer,
 } from './user';
 
+import { showLoaderReducer } from './sharedReducer';
+
 export default combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
@@ -35,4 +37,5 @@ export default combineReducers({
   createProductReview: createProductReviewReducer,
   topProducts: getTopProductsReducer,
   allCategories: getAllCategoriesReducer,
+  showLoader: showLoaderReducer,
 });

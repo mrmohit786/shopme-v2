@@ -1,11 +1,22 @@
 import React, { useEffect } from 'react';
-import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { listProducts, listTopProducts } from 'redux/actions/products';
-import { ProductCarousel, Loader, Message, Paginate, ProductCard } from 'components';
+import { ProductCarousel, Message, Paginate, ProductCard } from 'components';
+import ProductListLoader from './components/ProductListLoader';
+import { Container, Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import CarouselLoader from './components/CarouselLoader';
+
+const useStyles = makeStyles({
+  root: {
+    flexGrow: 1,
+  },
+});
 
 const Home = ({ match }) => {
+  const classes = useStyles();
+
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const topProducts = useSelector((state) => state.topProducts);
@@ -17,34 +28,37 @@ const Home = ({ match }) => {
   }, [dispatch, keyword, pageNumber]);
 
   useEffect(() => {
-    if (topProducts?.products.length === 0) {
+    if (topProducts.products.length === 0) {
       dispatch(listTopProducts());
     }
-  }, [dispatch, topProducts?.products.length]);
+  }, [dispatch, topProducts.products.length]);
 
   return (
-    <>
-      {!keyword && <ProductCarousel topProducts={topProducts} />}
+    <Container container>
+      {!keyword && topProducts.loading ? (
+        <CarouselLoader />
+      ) : (
+        <ProductCarousel topProducts={topProducts} />
+      )}
       {loading ? (
-        <Loader />
+        <ProductListLoader />
       ) : error ? (
         <Message>{error}</Message>
       ) : (
         <>
-          <h1>New Arrivals</h1>
-          <Row>
-            {products?.map((product) => (
-              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+          <Grid container spacing={2}>
+            {products?.map((product, index) => (
+              <Grid key={index} item xs={12} sm={6} md={4} lg={3} xl={2}>
                 <ProductCard product={product} />
-              </Col>
+              </Grid>
             ))}
-          </Row>
-          <Row className="text-center">
+          </Grid>
+          <Grid container className={classes.root} spacing={2}>
             <Paginate pages={pages} page={page} keyword={keyword || ''} />
-          </Row>
+          </Grid>
         </>
       )}
-    </>
+    </Container>
   );
 };
 

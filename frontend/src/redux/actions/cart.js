@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { PRODUCTS } from '../../utils/apiRoutes';
-import { LOCALSTORAGE, MESSAGE } from '../../utils/constants';
+import { STORAGE, MESSAGE } from '../../utils/constants';
 import { saveState } from '../../utils/utility';
 import {
   CART_ADD_ITEM,
@@ -24,7 +24,7 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
       qty,
     },
   });
-  saveState(getState().cart.cartItems, LOCALSTORAGE.CART_INFO);
+  saveState(getState().cart.cartItems, STORAGE.CART_INFO);
 };
 
 export const removeFromCart = (id) => async (dispatch, getState) => {
@@ -33,7 +33,7 @@ export const removeFromCart = (id) => async (dispatch, getState) => {
     type: CART_REMOVE_ITEM,
     payload: id,
   });
-  saveState(getState().cart.cartItems, LOCALSTORAGE.CART_INFO);
+  saveState(getState().cart.cartItems, STORAGE.CART_INFO);
 };
 
 export const saveShippingAddress = (data) => async (dispatch) => {
@@ -41,7 +41,7 @@ export const saveShippingAddress = (data) => async (dispatch) => {
     type: CART_SAVE_SHIPPING_ADDRESS,
     payload: data,
   });
-  saveState(data, LOCALSTORAGE.SHIPPING_INFO);
+  saveState(data, STORAGE.SHIPPING_INFO);
 };
 
 export const savePaymentMethod = (data) => async (dispatch) => {
@@ -49,5 +49,5 @@ export const savePaymentMethod = (data) => async (dispatch) => {
     type: CART_SAVE_PAYMENT_METHOD,
     payload: data,
   });
-  saveState(data, LOCALSTORAGE.PAYMENT_METHOD_INFO);
+  saveState(data, STORAGE.PAYMENT_METHOD_INFO);
 };

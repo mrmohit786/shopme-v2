@@ -1,46 +1,63 @@
 /* eslint-disable no-underscore-dangle */
 
 import React from 'react';
-import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { PRICE, PRODUCT_FALLBACK_IMAGE } from 'utils/constants';
 import { Rating } from 'components';
+import { makeStyles } from '@material-ui/core/styles';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
 
-const ProductCard = ({ product }) => (
-  <>
-    {product && (
-      <>
-        <Card className="my-3 p-3 rounded">
-          <div style={{ maxWidth: '300px', maxHeight: '400px' }}>
-            <Link to={`/product/${product._id}`}>
-              <Card.Img
-                as="img"
-                style={{ width: '100%', height: '100%' }}
-                src={product.imawge || PRODUCT_FALLBACK_IMAGE}
-                variant="top"
-              />
-            </Link>
-          </div>
-          <Card.Body>
-            <Link to={`/product/${product._id}`}>
-              <Card.Title as="div">
-                <strong>{product.name}</strong>
-              </Card.Title>
-            </Link>
-            <Card.Text as="div">
+const useStyles = makeStyles({
+  root: {
+    maxWidth: 345,
+    marginBottom: 10,
+  },
+  media: {
+    height: 200,
+  },
+  ellipsis: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+});
+
+const ProductCard = ({ product }) => {
+  const classes = useStyles();
+
+  return (
+    <Link to={`/product/${product._id}`}>
+      <Card className={classes.root}>
+        <CardActionArea>
+          <CardMedia
+            className={classes.media}
+            image={product.images || PRODUCT_FALLBACK_IMAGE}
+            title={product.name}
+          />
+          <CardContent>
+            <Typography noWrap gutterBottom component="h6">
+              {product.brand}
+            </Typography>
+            <Typography variant="subtitle1" color="textSecondary" className={classes.ellipsis}>
+              {product.name}
+            </Typography>
+            <Typography variant="body1" color="textSecondary">
+              {PRICE} {product.price}
+            </Typography>
+            <Typography variant="body1" color="textSecondary">
               <Rating value={product.rating} text={`${product.numReviews} reviews`} />
-            </Card.Text>
-            <Card.Text as="h3">
-              {PRICE}
-              {product.price}
-            </Card.Text>
-          </Card.Body>
-        </Card>
-      </>
-    )}
-  </>
-);
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </Link>
+  );
+};
 
 ProductCard.propTypes = {
   product: PropTypes.any.isRequired,
