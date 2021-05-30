@@ -23,9 +23,7 @@ const Order = ({ match }) => {
 
   const [ispayPalReady, setPayPalReady] = useState(false);
   const { order, loading, error } = useSelector((state) => state.orderDetails);
-  const { loading: loadingPay, success: successPay, error: errorPay } = useSelector(
-    (state) => state.orderPay,
-  );
+  const { loading: loadingPay, success: successPay } = useSelector((state) => state.orderPay);
 
   useEffect(() => {
     if (paymentMethod === 'PayPal') {

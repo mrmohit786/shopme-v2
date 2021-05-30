@@ -31,7 +31,6 @@ const customStyles = {
   },
 };
 const Products = ({ history, match }) => {
-  const productId = match.params.id;
   const { loading, error, product } = useSelector((state) => state.productDetails);
   const [qty, setQty] = useState(1);
   const [comment, setComments] = useState(0);
@@ -39,15 +38,13 @@ const Products = ({ history, match }) => {
   const [openReviewModal, setReviewModal] = React.useState(false);
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userLogin);
-  const {
-    loading: loadingProductReview,
-    error: errorProductReview,
-    success: successProductReview,
-  } = useSelector((state) => state.createProductReview);
+  const { error: errorProductReview, success: successProductReview } = useSelector(
+    (state) => state.createProductReview,
+  );
 
   useEffect(() => {
-    dispatch(listProductDetails(productId));
-  }, [dispatch, productId]);
+    dispatch(listProductDetails(match.params.id));
+  }, [dispatch, match]);
 
   useEffect(() => {
     if (successProductReview) {
@@ -58,24 +55,24 @@ const Products = ({ history, match }) => {
   }, [dispatch, match, successProductReview]);
 
   const handleAddToCart = () => {
-    history.push(`/cart/${productId}?qty=${qty}`);
+    history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
 
   const submitReviewHandler = (e) => {
     e.preventDefault();
-    dispatch(createProductReview(productId, { rating, comment }));
+    dispatch(createProductReview(match.params.id, { rating, comment }));
   };
 
   const afterOpenModal = () => {
     // references are now sync'd and can be accessed.
   };
 
-  const NotPurchasedProductComponent = (
-    <div>
-      <h2>Haven't Purchased this product?</h2>
-      <p>Sorry! You are not allowed to review this product since you haven't bought it on ShopMe</p>
-    </div>
-  );
+  // const NotPurchasedProductComponent = (
+  //   <div>
+  //     <h2>Haven't Purchased this product?</h2>
+  //     <p>Sorry! You are not allowed to review this product since you haven't bought it on ShopMe</p>
+  //   </div>
+  // );
 
   const RatingModalComponent = (
     <Form onSubmit={submitReviewHandler}>

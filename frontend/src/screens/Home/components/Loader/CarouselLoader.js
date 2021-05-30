@@ -18,10 +18,8 @@ const useStyles = makeStyles((theme) => ({
     flex: '1 0 auto',
   },
   cover: {
-    maxWidth: 600,
-    maxHeight: 400,
-    width: 600,
-    height: 400,
+    minWidth: 609,
+    minHeight: 300,
   },
 }));
 
@@ -31,7 +29,7 @@ const CarouselLoader = () => {
     <SkeletonTheme color="lightGray">
       <Card className={classes.root}>
         <CardMedia className={classes.cover}>
-          <Skeleton width={600} height={400} />
+          <Skeleton width={609} height={300} />
         </CardMedia>
 
         <div className={classes.details}>

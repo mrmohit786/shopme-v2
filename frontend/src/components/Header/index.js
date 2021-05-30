@@ -1,36 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { Link, Route } from 'react-router-dom';
+import React from 'react';
+import { Route } from 'react-router-dom';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Search } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from 'redux/actions/user';
 import { APPLICATION_NAME } from 'utils/constants';
-import { getCategories } from 'services/categoryService';
-import { toast } from 'react-toastify';
 
 const Header = () => {
   const dispatch = useDispatch();
-  const [categories, setCategories] = useState([]);
-
   const { userInfo } = useSelector((state) => state.userLogin);
-
-  useEffect(() => {
-    listCategories();
-  }, []);
 
   const logoutHandler = () => {
     dispatch(logout());
-  };
-
-  const listCategories = async () => {
-    const res = await getCategories().catch((e) => {
-      debugger;
-      toast.error(e?.data?.error);
-    });
-    if (res) {
-      setCategories(res.data);
-    }
   };
 
   return (
@@ -67,14 +49,6 @@ const Header = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {/* <div className="d-flex justify-content-around">
-        {categories?.map((category) => (
-          <Link to={`/category/${category._id}`}>
-            <i className="fas fa-shopping-cart" />
-            <p>{category.name}</p>
-          </Link>
-        ))}
-      </div> */}
     </header>
   );
 };

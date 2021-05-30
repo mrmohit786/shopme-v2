@@ -280,7 +280,7 @@ const Footer = () => {
               </Box>
             </Grid>
 
-            <Grid xs={12}>
+            <Grid item xs={12}>
               <Divider className={classes.divider} />
 
               <Box className={classes.dFlex}>

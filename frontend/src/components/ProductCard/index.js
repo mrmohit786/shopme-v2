@@ -11,6 +11,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
+import { motion } from 'framer-motion';
 
 const useStyles = makeStyles({
   root: {
@@ -32,11 +33,11 @@ const ProductCard = ({ product }) => {
 
   return (
     <Link to={`/product/${product._id}`}>
-      <Card className={classes.root}>
+      <Card component={motion.div} whileHover={{ scale: 1.05 }} className={classes.root}>
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image={product.images || PRODUCT_FALLBACK_IMAGE}
+            image={product.image || PRODUCT_FALLBACK_IMAGE}
             title={product.name}
           />
           <CardContent>
