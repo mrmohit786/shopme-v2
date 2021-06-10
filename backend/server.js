@@ -1,19 +1,43 @@
 import express from 'express';
 import colors from 'colors';
-import compression from 'compression';
+import logger from 'morgan';
+import cors from 'cors';
+import path from 'path';
+import helmet from 'helmet';
+import xssClean from 'xss-clean';
+import hpp from 'hpp';
+import mongoSanitize from 'express-mongo-sanitize';
+import rateLimit from 'express-rate-limit';
+
+import env from './config/env.js';
 import connectDB from './config/database.js';
 import routes from './routes/routes.js';
 import { errorHandler, notFound } from './middleware/error.js';
-import logger from 'morgan';
-import cors from 'cors';
-import env from './config/env.js';
-import path from 'path';
 
 connectDB();
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+// Restrict all routes to only 100 requests per IP address every 1o minutes
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10 minutes
+  max: 100, // 100 requests per IP
+});
+app.use(limiter);
+
+// Using helmet middleware
+app.use(helmet());
+
+// Protect against XSS attacks, should come before any routes
+app.use(xssClean());
+
+// Protect against HPP, should come before any routes
+app.use(hpp());
+
+// Remove all keys containing prohibited characters
+app.use(mongoSanitize());
 
 if (env.NODE_ENV === 'development') {
   app.use(logger('dev'));
